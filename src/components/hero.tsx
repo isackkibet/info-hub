@@ -12,7 +12,7 @@ export function Hero() {
       className="relative isolate overflow-hidden"
       style={{ minHeight: "calc(100vh - 4rem)" }}
     >
-      {/* ── Background image ── */}
+      {/* Background image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/hero-bg.jpg"
@@ -21,18 +21,15 @@ export function Hero() {
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
 
-      {/* ── Layered overlays: keep left col fully readable, let right col breathe ── */}
-      {/* Base dark wash over the whole image */}
-      <div className="absolute inset-0 bg-forest-950/75" />
-      {/* Stronger left-to-right fade so left text column is always readable */}
-      <div className="absolute inset-0 bg-linear-to-r from-forest-950/90 via-forest-950/60 to-transparent" />
-      {/* Subtle vertical vignette top + bottom */}
-      <div className="absolute inset-0 bg-linear-to-b from-forest-950/40 via-transparent to-forest-950/60" />
+      {/* Overlays — keep text readable */}
+      <div className="absolute inset-0 bg-forest-950/80" />
+      <div className="absolute inset-0 bg-linear-to-r from-forest-950/95 via-forest-950/70 to-forest-950/40" />
+      <div className="absolute inset-0 bg-linear-to-b from-forest-950/30 via-transparent to-forest-950/50" />
 
-      {/* ── Content ── */}
+      {/* Content */}
       <div className="relative mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-2 lg:items-center lg:py-32 lg:px-8">
 
-        {/* Left column — text floats above dark overlay */}
+        {/* Left column */}
         <div>
           <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white backdrop-blur-sm">
             Unified Environmental Info Hub
@@ -44,7 +41,7 @@ export function Hero() {
             one shared trust layer
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-forest-100/90 drop-shadow">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80 drop-shadow">
             The SIHU News Hub and the CFA Conservation Hub turn scattered
             environmental and conservation information into structured,
             trustworthy records, verified by real people and backed by
@@ -66,52 +63,58 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Two-hub mini preview */}
+          {/* Hub mini preview */}
           <div className="mt-12 grid grid-cols-2 gap-4 border-t border-white/10 pt-8">
             <div className="rounded-xl border border-lake-300/30 bg-lake-900/40 px-4 py-3 backdrop-blur-sm">
               <p className="text-xs font-semibold uppercase tracking-wide text-lake-300">SIHU</p>
               <p className="mt-1 text-sm font-medium text-white">Water &amp; Civic Reports</p>
-              <p className="mt-1 text-xs text-forest-200/80">Lake Victoria Basin</p>
+              <p className="mt-1 text-xs text-white/60">Lake Victoria Basin</p>
             </div>
             <div className="rounded-xl border border-forest-300/30 bg-forest-900/40 px-4 py-3 backdrop-blur-sm">
               <p className="text-xs font-semibold uppercase tracking-wide text-forest-300">CFA</p>
               <p className="mt-1 text-sm font-medium text-white">Forest Conservation</p>
-              <p className="mt-1 text-xs text-forest-200/80">Community Forest Associations</p>
+              <p className="mt-1 text-xs text-white/60">Community Forest Associations</p>
             </div>
           </div>
         </div>
 
-        {/* Right column — frosted glass card */}
+        {/* Right column — solid card so background never bleeds through */}
         <div className="relative">
-          {/* Glow halo behind the card */}
-          <div className="absolute -inset-4 rounded-3xl bg-forest-400/10 blur-2xl" />
+          {/* Soft glow halo */}
+          <div className="absolute -inset-4 rounded-3xl bg-forest-400/15 blur-2xl" />
 
-          <div className="relative rounded-2xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-md">
-            <div className="mb-6 flex items-center justify-between">
-              <p className="text-xs font-semibold uppercase tracking-wide text-white/70">
+          <div className="relative overflow-hidden rounded-2xl bg-forest-950/90 shadow-2xl ring-1 ring-white/10 backdrop-blur-md">
+
+            {/* Card header */}
+            <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
+              <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
                 Record lifecycle
               </p>
-              <span className="rounded-full border border-gold-400/40 bg-gold-500/20 px-2.5 py-1 text-xs font-medium text-gold-300 backdrop-blur-sm">
+              <span className="rounded-full border border-gold-400/40 bg-gold-500/20 px-3 py-1 text-xs font-semibold text-gold-300">
                 Avalanche anchored
               </span>
             </div>
 
-            <ol className="space-y-6">
+            {/* Steps */}
+            <ol className="px-6 py-5">
               {flowSteps.map((step, index) => (
                 <li key={step.label} className="flex gap-4">
+                  {/* Number + connector */}
                   <div className="flex flex-col items-center">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest-600/80 text-xs font-semibold text-white ring-1 ring-white/20 backdrop-blur-sm">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest-600 text-xs font-bold text-white ring-1 ring-forest-400/40">
                       {index + 1}
                     </span>
                     {index < flowSteps.length - 1 && (
-                      <span className="mt-1 h-full w-px flex-1 bg-white/15" />
+                      <span className="my-1 w-px flex-1 bg-white/15" style={{ minHeight: "1.5rem" }} />
                     )}
                   </div>
-                  <div className="pb-2">
+
+                  {/* Text */}
+                  <div className={index < flowSteps.length - 1 ? "pb-4" : "pb-1"}>
                     <p className="text-sm font-semibold text-white">
                       {step.label}
                     </p>
-                    <p className="mt-1 text-sm leading-relaxed text-white/65">
+                    <p className="mt-0.5 text-sm leading-relaxed text-white/60">
                       {step.detail}
                     </p>
                   </div>
@@ -120,14 +123,15 @@ export function Hero() {
             </ol>
 
             {/* Trust badge */}
-            <div className="mt-6 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+            <div className="flex items-center gap-3 border-t border-white/10 bg-white/5 px-6 py-4">
               <span className="h-2 w-2 shrink-0 rounded-full bg-gold-400 shadow-sm shadow-gold-400/60" />
-              <p className="text-xs text-white/70">
+              <p className="text-xs text-white/60">
                 No wallets required. Anchoring is automatic and invisible to field users.
               </p>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );
