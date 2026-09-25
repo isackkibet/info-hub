@@ -48,18 +48,24 @@ export const sihuSubmissionSchema = z
       ),
     body: z.string().trim().optional(),
   })
-  .refine(
-    (data) => {
-      if (data.contentType === "ARTICLE") {
-        return Boolean(data.publicMediaUrl) || Boolean(data.body);
+  .superRefine((data, ctx) => {
+    if (data.contentType === "ARTICLE") {
+      if (!data.publicMediaUrl && !data.body) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Add a public link, or write the article below",
+          path: ["publicMediaUrl"],
+        });
       }
-      return Boolean(data.publicMediaUrl);
-    },
-    {
-      message:
-        "Add a public link (or write the article below for an article submission)",
-      path: ["publicMediaUrl"],
-    },
-  );
+      return;
+    }
+    if (!data.publicMediaUrl) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "A public link is required for this format",
+        path: ["publicMediaUrl"],
+      });
+    }
+  });
 
 export type SihuSubmissionInput = z.infer<typeof sihuSubmissionSchema>;
