@@ -52,9 +52,23 @@ export default function CfaDashboardPage() {
     ...months.map((month) => Math.max(month.propagated, month.planted, month.sold)),
   );
 
-  const recent = [...state.activities]
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .slice(0, 6);
+  const recentAll = [...state.activities].sort((a, b) =>
+    b.createdAt.localeCompare(a.createdAt),
+  );
+  const recent = recentAll.slice(0, 2);
+  const moreRecent = recentAll.length - recent.length;
+
+  const topStock = stock.slice(0, 2);
+  const moreStock = stock.length - topStock.length;
+
+  const recentMonths = months.slice(-2);
+  const moreMonths = months.length - recentMonths.length;
+
+  const topTrend = trend.slice(0, 2);
+  const moreTrend = trend.length - topTrend.length;
+
+  const topLow = low.slice(0, 2);
+  const moreLow = low.length - topLow.length;
 
   return (
     <PageShell
@@ -115,7 +129,7 @@ export default function CfaDashboardPage() {
               </p>
             ) : (
               <div className="mt-4 space-y-3">
-                {stock.slice(0, 8).map((row) => (
+                {topStock.map((row) => (
                   <BarRow
                     key={row.key}
                     label={`${speciesName(state, row.speciesId)} · ${nurseryName(state, row.nurseryId)}`}
@@ -123,6 +137,11 @@ export default function CfaDashboardPage() {
                     max={speciesMax}
                   />
                 ))}
+                {moreStock > 0 && (
+                  <p className="text-xs text-ink-600">
+                    {moreStock} more in the inventory ledger
+                  </p>
+                )}
               </div>
             )}
           </Card>
@@ -135,7 +154,7 @@ export default function CfaDashboardPage() {
               <p className="mt-4 text-sm text-ink-600">No dated movements yet.</p>
             ) : (
               <div className="mt-4 space-y-3">
-                {months.slice(-8).map((month) => (
+                {recentMonths.map((month) => (
                   <div key={month.month} className="rounded-lg border border-sand-200 p-3">
                     <p className="text-xs font-semibold uppercase tracking-wide text-ink-600">
                       {month.label}
@@ -156,6 +175,14 @@ export default function CfaDashboardPage() {
                     </div>
                   </div>
                 ))}
+                {moreMonths > 0 && (
+                  <p className="text-xs text-ink-600">
+                    {moreMonths} earlier month{moreMonths === 1 ? "" : "s"} in{" "}
+                    <Link href="/cfa/reports" className="font-medium text-forest-700 hover:underline">
+                      reports
+                    </Link>
+                  </p>
+                )}
               </div>
             )}
           </Card>
@@ -170,7 +197,7 @@ export default function CfaDashboardPage() {
               </p>
             ) : (
               <div className="mt-4 space-y-3">
-                {trend.map((point) => (
+                {topTrend.map((point) => (
                   <BarRow
                     key={point.eventId}
                     label={`${point.eventLabel} · ${point.surviving}/${point.assessed} alive`}
@@ -179,6 +206,15 @@ export default function CfaDashboardPage() {
                     suffix="%"
                   />
                 ))}
+                {moreTrend > 0 && (
+                  <p className="text-xs text-ink-600">
+                    {moreTrend} more planting site
+                    {moreTrend === 1 ? "" : "s"} in{" "}
+                    <Link href="/cfa/survival" className="font-medium text-forest-700 hover:underline">
+                      survival monitoring
+                    </Link>
+                  </p>
+                )}
               </div>
             )}
           </Card>
@@ -221,7 +257,7 @@ export default function CfaDashboardPage() {
               description="Species at or below 500 seedlings in stock."
             >
               <ul className="mt-4 space-y-2">
-                {low.map((row) => (
+                {topLow.map((row) => (
                   <li
                     key={row.key}
                     className="flex items-baseline justify-between border-b border-sand-100 pb-2 text-sm last:border-none last:pb-0"
@@ -238,6 +274,14 @@ export default function CfaDashboardPage() {
                   </li>
                 ))}
               </ul>
+              {moreLow > 0 && (
+                <Link
+                  href="/cfa/inventory"
+                  className="mt-3 inline-block text-xs font-medium text-forest-700 hover:underline"
+                >
+                  {moreLow} more low-stock species
+                </Link>
+              )}
             </Card>
           )}
 
@@ -274,6 +318,14 @@ export default function CfaDashboardPage() {
                 ))}
               </ul>
             )}
+            {moreRecent > 0 && (
+              <Link
+                href="/cfa/activities"
+                className="mt-3 inline-block text-xs font-medium text-forest-700 hover:underline"
+              >
+                {moreRecent} more in the activity log
+              </Link>
+            )}
           </Card>
 
           <Card
@@ -283,8 +335,6 @@ export default function CfaDashboardPage() {
             <div className="mt-4 grid gap-2">
               {[
                 { href: "/cfa/activities", label: "Record an activity" },
-                { href: "/cfa/planting", label: "Log a planting event" },
-                { href: "/cfa/sales", label: "Record a sale" },
                 { href: "/cfa/reports", label: "Generate a report" },
               ].map((item) => (
                 <Link
