@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { signOutAction } from "@/lib/auth-actions";
 
 const sihuLinks = [
+  { href: "/sihu/dashboard", label: "SIHU Hub" },
   { href: "/sihu/submit", label: "Submit Report" },
   { href: "/sihu/validator", label: "Validator Queue" },
   { href: "/sihu/my-reports", label: "My Reports" },

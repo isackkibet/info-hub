@@ -35,9 +35,8 @@ export default async function DashboardPage() {
       hasAccess: Boolean(sihuMembership),
       accent: "lake" as const,
       actions: [
-        { href: "/sihu/submit", label: "Submit a report", primary: true },
-        { href: "/sihu/validator", label: "Validator queue", primary: false },
-        { href: "/sihu/my-reports", label: "My reports", primary: false },
+        { href: "/sihu/dashboard", label: "Open SIHU dashboard", primary: true },
+        { href: "/sihu/submit", label: "Submit a report", primary: false },
       ],
     },
     {
