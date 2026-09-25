@@ -1,8 +1,7 @@
 "use server";
 
-import { AuthError } from "next-auth";
 import { signIn } from "@/auth";
-import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export type LoginState = { error?: string };
 
@@ -19,19 +18,21 @@ export async function loginAction(
   }
 
   try {
+    // In NextAuth v5, signIn() in a server action always throws a redirect
+    // on success. We must let that redirect propagate — do NOT catch it.
     await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirectTo: callbackUrl,
     });
   } catch (error) {
-    if (error instanceof AuthError) {
-      return { error: "Incorrect email or password." };
+    // Next.js redirect() throws a special error — let it through
+    if (isRedirectError(error)) {
+      throw error;
     }
-    // NextAuth throws a NEXT_REDIRECT — let it propagate
-    throw error;
+    // Everything else is a bad credential or config error
+    return { error: "Incorrect email or password." };
   }
 
-  // Successful sign-in — redirect server-side
-  redirect(callbackUrl);
+  return {};
 }
