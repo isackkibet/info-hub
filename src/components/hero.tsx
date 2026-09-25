@@ -21,17 +21,13 @@ export function Hero() {
       {/* Content */}
       <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl items-center px-6 py-24 lg:px-8">
         <div className="max-w-2xl">
-          <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white backdrop-blur-sm">
-            Unified Environmental Info Hub
-          </span>
-
-          <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-white drop-shadow-lg sm:text-5xl lg:text-6xl">
+          <h1 className="text-balance text-4xl font-semibold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] sm:text-5xl lg:text-6xl">
             One platform,{" "}
             <span className="text-forest-300">two hubs,</span>{" "}
             one shared trust layer
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85 drop-shadow">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
             The SIHU News Hub and the CFA Conservation Hub turn scattered
             environmental and conservation information into structured,
             trustworthy records, verified by real people and backed by
