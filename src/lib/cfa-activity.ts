@@ -30,6 +30,8 @@ export const ACTIVITY_TYPE_OPTIONS = Object.entries(ACTIVITY_TYPE_LABELS) as [
   string,
 ][];
 
+export type CfaVerificationStatus = "UNVERIFIED" | "VERIFIED" | "REJECTED";
+
 export interface CfaActivity {
   id: string;
   activityType: CfaActivityType;
@@ -38,6 +40,8 @@ export interface CfaActivity {
   quantity: number;
   notes?: string;
   recordedBy: string;
+  verificationStatus: CfaVerificationStatus;
+  reviewNotes?: string;
   createdAt: string;
 }
 
@@ -57,6 +61,7 @@ function seedActivities(): CfaActivity[] {
       speciesName: "Vitex keniensis",
       quantity: 500,
       recordedBy: "Achieng",
+      verificationStatus: "UNVERIFIED",
       createdAt: new Date(now - 1000 * 60 * 60 * 5).toISOString(),
     },
     {
@@ -67,6 +72,8 @@ function seedActivities(): CfaActivity[] {
       quantity: 200,
       notes: "Planted along the eastern boundary during the community day.",
       recordedBy: "Kiptoo",
+      verificationStatus: "VERIFIED",
+      reviewNotes: "Confirmed against site photos and GPS log.",
       createdAt: new Date(now - 1000 * 60 * 60 * 28).toISOString(),
     },
     {
@@ -77,6 +84,7 @@ function seedActivities(): CfaActivity[] {
       quantity: 12,
       notes: "Dry spell affected recently planted seedlings.",
       recordedBy: "Chebet",
+      verificationStatus: "UNVERIFIED",
       createdAt: new Date(now - 1000 * 60 * 60 * 52).toISOString(),
     },
   ];
