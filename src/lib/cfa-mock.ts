@@ -39,9 +39,19 @@ export const cfaSpeciesSample = [
   { name: "Dombeya torrida", classification: "Indigenous", purpose: "Riparian Buffer" },
 ];
 
+const totalPlanted = cfaSites.reduce((sum, s) => sum + s.planted, 0);
+const totalSurvivingPlanted = cfaSites.reduce(
+  (sum, s) => sum + (s.planted > 0 ? s.surviving : 0),
+  0,
+);
+
 export const cfaTotals = {
   activeSites: cfaSites.length,
   totalTrees: cfaSites.reduce((sum, s) => sum + s.totalTrees, 0),
   surviving: cfaSites.reduce((sum, s) => sum + s.surviving, 0),
   speciesCount: 21,
+  survivalRate:
+    totalPlanted > 0
+      ? Math.round((totalSurvivingPlanted / totalPlanted) * 100)
+      : 0,
 };
