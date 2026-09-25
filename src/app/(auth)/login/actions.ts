@@ -1,7 +1,8 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { AuthError, CredentialsSignin } from "next-auth";
+import { unstable_rethrow } from "next/navigation";
 
 export type LoginState = { error?: string };
 
@@ -26,12 +27,19 @@ export async function loginAction(
       redirectTo: callbackUrl,
     });
   } catch (error) {
-    // Next.js redirect() throws a special error — let it through
-    if (isRedirectError(error)) {
-      throw error;
+    unstable_rethrow(error);
+
+    if (error instanceof CredentialsSignin) {
+      return { error: "Incorrect email or password." };
     }
-    // Everything else is a bad credential or config error
-    return { error: "Incorrect email or password." };
+
+    if (error instanceof AuthError) {
+      return {
+        error: "Sign-in is temporarily unavailable. Please try again.",
+      };
+    }
+
+    throw error;
   }
 
   return {};
