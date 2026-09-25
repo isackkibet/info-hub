@@ -1,27 +1,19 @@
 const principles = [
   {
     title: "Built for the field",
-    detail:
-      "Simple, fast forms that work well on an ordinary phone, even with a weak connection.",
-    accent: "forest",
+    detail: "Works well on an ordinary phone, even on a weak connection.",
   },
   {
     title: "Evidence, not just claims",
-    detail:
-      "Every report needs something behind it: a photo, a location, a link, or a count.",
-    accent: "lake",
+    detail: "Every report needs a photo, a location, a link, or a count behind it.",
   },
   {
     title: "Checked before it counts",
-    detail:
-      "A record only becomes verified after a real person reviews it, not just an automatic check.",
-    accent: "forest",
+    detail: "A real person reviews it before it counts as verified.",
   },
   {
     title: "Always traceable",
-    detail:
-      "Every record shows who submitted it, where, when, and who confirmed it.",
-    accent: "lake",
+    detail: "Every record shows who submitted it, when, and who confirmed it.",
   },
 ];
 
@@ -38,23 +30,20 @@ export function Principles() {
           </h2>
         </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2">
-          {principles.map((principle) => (
-            <div
-              key={principle.title}
-              className={
-                "flex flex-col rounded-2xl bg-white p-6 shadow-lg shadow-forest-950/5 border-l-4 " +
-                (principle.accent === "forest"
-                  ? "border-l-forest-600"
-                  : "border-l-lake-600")
-              }
-            >
-              <h3 className="text-base font-semibold text-ink-900">
-                {principle.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-600">
-                {principle.detail}
-              </p>
+        <div className="mt-14 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+          {principles.map((principle, index) => (
+            <div key={principle.title} className="flex gap-4">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest-100 text-sm font-semibold text-forest-700">
+                {index + 1}
+              </span>
+              <div>
+                <h3 className="text-base font-semibold text-ink-900">
+                  {principle.title}
+                </h3>
+                <p className="mt-1 text-sm leading-relaxed text-ink-600">
+                  {principle.detail}
+                </p>
+              </div>
             </div>
           ))}
         </div>
