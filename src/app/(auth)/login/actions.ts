@@ -2,6 +2,7 @@
 
 import { AuthError } from "next-auth";
 import { signIn } from "@/auth";
+import { redirect } from "next/navigation";
 
 export type LoginState = { error?: string };
 
@@ -21,13 +22,16 @@ export async function loginAction(
     await signIn("credentials", {
       email,
       password,
-      redirectTo: callbackUrl,
+      redirect: false,
     });
-    return {};
   } catch (error) {
     if (error instanceof AuthError) {
       return { error: "Incorrect email or password." };
     }
+    // NextAuth throws a NEXT_REDIRECT — let it propagate
     throw error;
   }
+
+  // Successful sign-in — redirect server-side
+  redirect(callbackUrl);
 }
