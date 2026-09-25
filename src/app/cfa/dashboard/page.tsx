@@ -1,179 +1,315 @@
+"use client";
+
 import Link from "next/link";
-import { AppNav } from "@/components/app-nav";
+import { PageShell } from "@/components/cfa/page-shell";
+import { StatCard, VerificationBadge } from "@/components/cfa/badges";
+import { BarRow } from "@/components/cfa/table";
+import { Card } from "@/components/cfa/fields";
+import { useCfaState } from "@/lib/cfa/store";
 import {
-  cfaPipeline,
-  cfaSites,
-  cfaSpeciesSample,
-  cfaTotals,
-} from "@/lib/cfa-mock";
-import { RecentActivity } from "./recent-activity";
+  aggregateStock,
+  inventorySummary,
+  lowStockRows,
+  monthlyMovement,
+  nurseryName,
+  speciesName,
+  survivalTrend,
+} from "@/lib/cfa/inventory";
+import {
+  ActivityTypeLabels,
+  VerificationStatusLabels,
+  type VerificationStatus,
+} from "@/lib/cfa/types";
+import { formatRelativeDate } from "@/lib/format-date";
+
+const PIPELINE: VerificationStatus[] = [
+  "DRAFT",
+  "SUBMITTED",
+  "UNDER_REVIEW",
+  "VERIFIED",
+  "NEEDS_CORRECTION",
+  "REJECTED",
+];
 
 export default function CfaDashboardPage() {
+  const state = useCfaState();
+  const summary = inventorySummary(state);
+  const stock = aggregateStock(state);
+  const months = monthlyMovement(state);
+  const trend = survivalTrend(state);
+  const low = lowStockRows(state, 500);
+
+  const pipelineCounts = PIPELINE.map((status) => ({
+    status,
+    count: state.activities.filter((activity) => activity.status === status).length,
+  }));
+  const maxPipeline = Math.max(
+    1,
+    ...pipelineCounts.map((item) => item.count),
+  );
+
+  const speciesMax = Math.max(1, ...stock.map((row) => row.quantity));
+  const monthMax = Math.max(
+    1,
+    ...months.map((month) => Math.max(month.propagated, month.planted, month.sold)),
+  );
+
+  const recent = [...state.activities]
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, 6);
+
   return (
-    <>
-      <AppNav />
-      <main className="flex-1 bg-sand-50">
-        <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-wide text-forest-700">
-                CFA Conservation Hub
-              </span>
-              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink-900">
-                Kapsabet Forest Association
-              </h1>
-              <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-700">
-                Site management, species records, offline field submission, and
-                live verification will appear here as they go live.
+    <PageShell
+      eyebrow="CFA Conservation Hub"
+      title={state.cfa.name}
+      description="Every figure on this page is calculated from the nursery inventory ledger and activity log. Nothing here is typed in by hand."
+    >
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+        <StatCard
+          label="Current stock"
+          value={summary.currentStock.toLocaleString()}
+          hint="Seedlings on hand across all nurseries"
+          tone="green"
+        />
+        <StatCard
+          label="Species tracked"
+          value={summary.speciesCount}
+          hint={`${state.species.length} in the catalogue`}
+        />
+        <StatCard
+          label="Active seedbeds"
+          value={summary.activeSeedbeds}
+          hint={`${state.seedbeds.length} total`}
+        />
+        <StatCard
+          label="Propagated"
+          value={summary.propagated.toLocaleString()}
+          hint="This ledger's production"
+        />
+        <StatCard
+          label="Survival rate"
+          value={`${summary.survivalRate}%`}
+          hint="Latest observation per planting site"
+          tone={summary.survivalRate >= 80 ? "green" : "amber"}
+        />
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <StatCard label="Planted" value={summary.planted.toLocaleString()} />
+        <StatCard label="Sold" value={summary.sold.toLocaleString()} />
+        <StatCard label="Donated" value={summary.donated.toLocaleString()} />
+        <StatCard
+          label="Mortality"
+          value={summary.mortality.toLocaleString()}
+          hint={`${summary.mortalityRate}% of everything produced`}
+          tone={summary.mortalityRate > 20 ? "amber" : "sand"}
+        />
+      </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-[3fr_2fr]">
+        <div className="space-y-6">
+          <Card
+            title="Stock by species"
+            description="Closing stock per nursery and species, from posted transactions only."
+            action={
+              <Link
+                href="/cfa/inventory"
+                className="text-sm font-medium text-forest-700 hover:underline"
+              >
+                Open inventory
+              </Link>
+            }
+          >
+            {stock.length === 0 ? (
+              <p className="mt-4 text-sm text-ink-600">
+                No stock has been posted yet. Record an opening stock or a
+                propagation activity to start the ledger.
               </p>
-            </div>
-            <Link
-              href="/cfa/submit"
-              className="shrink-0 rounded-md bg-forest-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-forest-700"
-            >
-              Record activity
-            </Link>
-          </div>
+            ) : (
+              <div className="mt-4 space-y-3">
+                {stock.slice(0, 8).map((row) => (
+                  <BarRow
+                    key={row.key}
+                    label={`${speciesName(state, row.speciesId)} · ${nurseryName(state, row.nurseryId)}`}
+                    value={row.quantity}
+                    max={speciesMax}
+                  />
+                ))}
+              </div>
+            )}
+          </Card>
 
-          {/* Stat strip */}
-          <div className="mt-10 grid grid-cols-2 divide-y divide-sand-200 overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-950/5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:grid-cols-5">
-            <Stat label="Active sites" value={cfaTotals.activeSites} />
-            <Stat
-              label="Trees recorded"
-              value={cfaTotals.totalTrees.toLocaleString()}
-            />
-            <Stat
-              label="Trees surviving"
-              value={cfaTotals.surviving.toLocaleString()}
-            />
-            <Stat label="Species tracked" value={cfaTotals.speciesCount} />
-            <Stat
-              label="Survival rate"
-              value={`${cfaTotals.survivalRate}%`}
-            />
-          </div>
-
-          <div className="mt-12 grid gap-8 lg:grid-cols-[3fr_2fr]">
-            {/* Sites */}
-            <div>
-              <h2 className="text-lg font-semibold text-ink-900">
-                Sites and nurseries
-              </h2>
-              <div className="mt-4 space-y-4">
-                {cfaSites.map((site) => (
-                  <div
-                    key={site.name}
-                    className="overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-950/5"
-                  >
-                    <div className="h-1 w-full bg-forest-600" />
-                    <div className="p-6">
-                      <div className="flex flex-wrap items-baseline justify-between gap-2">
-                        <h3 className="text-base font-semibold text-ink-900">
-                          {site.name}
-                        </h3>
-                        <span className="rounded-full border border-forest-200 bg-forest-50 px-2 py-0.5 text-xs text-forest-700">
-                          {site.areaHectares} ha
-                        </span>
-                      </div>
-                      <dl className="mt-4 grid grid-cols-3 gap-4 border-t border-sand-200 pt-4">
-                        <div>
-                          <dt className="text-xs text-ink-600">Total trees</dt>
-                          <dd className="mt-1 text-sm font-semibold text-ink-900">
-                            {site.totalTrees.toLocaleString()}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="text-xs text-ink-600">Species</dt>
-                          <dd className="mt-1 text-sm font-semibold text-ink-900">
-                            {site.species}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="text-xs text-ink-600">Surviving</dt>
-                          <dd className="mt-1 text-sm font-semibold text-ink-900">
-                            {site.surviving.toLocaleString()}
-                          </dd>
-                        </div>
-                      </dl>
+          <Card
+            title="Movement by month"
+            description="Production, planting, and sale volumes per month."
+          >
+            {months.length === 0 ? (
+              <p className="mt-4 text-sm text-ink-600">No dated movements yet.</p>
+            ) : (
+              <div className="mt-4 space-y-3">
+                {months.slice(-8).map((month) => (
+                  <div key={month.month} className="rounded-lg border border-sand-200 p-3">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-ink-600">
+                      {month.label}
+                    </p>
+                    <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-ink-700 sm:grid-cols-5">
+                      <span>Propagated {month.propagated.toLocaleString()}</span>
+                      <span>Planted {month.planted.toLocaleString()}</span>
+                      <span>Sold {month.sold.toLocaleString()}</span>
+                      <span>Donated {month.donated.toLocaleString()}</span>
+                      <span>Lost {month.mortality.toLocaleString()}</span>
+                    </div>
+                    <div className="mt-2">
+                      <BarRow
+                        label="Production"
+                        value={month.propagated}
+                        max={monthMax}
+                      />
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            )}
+          </Card>
 
-            <div className="space-y-8">
-              {/* Recent activity */}
-              <RecentActivity />
-
-              {/* Verification pipeline */}
-              <div className="rounded-2xl bg-white p-6 shadow-lg shadow-forest-950/5">
-                <h2 className="text-lg font-semibold text-ink-900">
-                  Verification pipeline
-                </h2>
-                <div className="mt-4 space-y-4">
-                  {cfaPipeline.map((item) => (
-                    <div key={item.stage}>
-                      <div className="flex items-center justify-between text-xs text-ink-600">
-                        <span>{item.stage}</span>
-                        <span className="font-semibold text-ink-900">{item.count}</span>
-                      </div>
-                      <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-sand-200">
-                        <div
-                          className="h-2 rounded-full bg-forest-600 transition-all"
-                          style={{
-                            width: `${Math.min(
-                              100,
-                              (item.count /
-                                Math.max(...cfaPipeline.map((p) => p.count))) *
-                                100,
-                            )}%`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+          <Card
+            title="Survival trend"
+            description="Latest survival observation for each planting site. Earlier observations are kept, never overwritten."
+          >
+            {trend.length === 0 ? (
+              <p className="mt-4 text-sm text-ink-600">
+                No survival observations recorded yet.
+              </p>
+            ) : (
+              <div className="mt-4 space-y-3">
+                {trend.map((point) => (
+                  <BarRow
+                    key={point.eventId}
+                    label={`${point.eventLabel} · ${point.surviving}/${point.assessed} alive`}
+                    value={point.rate}
+                    max={100}
+                    suffix="%"
+                  />
+                ))}
               </div>
-
-              {/* Species registry */}
-              <div className="rounded-2xl bg-white p-6 shadow-lg shadow-forest-950/5">
-                <h2 className="text-lg font-semibold text-ink-900">
-                  Species registry sample
-                </h2>
-                <ul className="mt-4 space-y-3">
-                  {cfaSpeciesSample.map((species) => (
-                    <li
-                      key={species.name}
-                      className="flex items-center justify-between border-b border-sand-200 pb-3 text-sm last:border-none last:pb-0"
-                    >
-                      <div>
-                        <p className="font-medium text-ink-900">
-                          {species.name}
-                        </p>
-                        <p className="text-xs text-ink-600">{species.purpose}</p>
-                      </div>
-                      <span className="rounded-full border border-forest-200 bg-forest-50 px-2 py-1 text-xs text-forest-700">
-                        {species.classification}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
+            )}
+          </Card>
         </div>
-      </main>
-    </>
-  );
-}
 
-function Stat({ label, value }: { label: string; value: string | number }) {
-  return (
-    <div className="px-6 py-5">
-      <p className="text-xs font-medium uppercase tracking-wide text-ink-600">
-        {label}
-      </p>
-      <p className="mt-2 text-2xl font-semibold text-ink-900">{value}</p>
-    </div>
+        <div className="space-y-6">
+          <Card title="Verification pipeline" description="Activity status counts.">
+            <div className="mt-4 space-y-3">
+              {pipelineCounts.map((item) => (
+                <div key={item.status}>
+                  <div className="flex items-center justify-between text-xs text-ink-600">
+                    <span>{VerificationStatusLabels[item.status]}</span>
+                    <span className="font-semibold text-ink-900">{item.count}</span>
+                  </div>
+                  <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-sand-200">
+                    <div
+                      className="h-2 rounded-full bg-forest-600"
+                      style={{
+                        width: `${Math.round((item.count / maxPipeline) * 100)}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/cfa/verification"
+              className="mt-4 inline-block text-sm font-medium text-forest-700 hover:underline"
+            >
+              Open verification queue
+            </Link>
+          </Card>
+
+          {low.length > 0 && (
+            <Card
+              title="Low stock"
+              description="Species at or below 500 seedlings in stock."
+            >
+              <ul className="mt-4 space-y-2">
+                {low.map((row) => (
+                  <li
+                    key={row.key}
+                    className="flex items-baseline justify-between border-b border-sand-100 pb-2 text-sm last:border-none last:pb-0"
+                  >
+                    <span className="text-ink-700">
+                      {speciesName(state, row.speciesId)}
+                      <span className="block text-xs text-ink-600">
+                        {nurseryName(state, row.nurseryId)}
+                      </span>
+                    </span>
+                    <span className="font-semibold text-ink-900">
+                      {row.quantity.toLocaleString()}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          )}
+
+          <Card title="Recent activity" description="Latest entries from the log.">
+            {recent.length === 0 ? (
+              <p className="mt-4 text-sm text-ink-600">Nothing recorded yet.</p>
+            ) : (
+              <ul className="mt-4 space-y-3">
+                {recent.map((activity) => (
+                  <li
+                    key={activity.id}
+                    className="border-b border-sand-100 pb-3 last:border-none last:pb-0"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-medium text-ink-900">
+                          {activity.quantity.toLocaleString()}{" "}
+                          {activity.speciesId
+                            ? speciesName(state, activity.speciesId)
+                            : "seedlings"}
+                        </p>
+                        <p className="mt-0.5 text-xs text-ink-600">
+                          {ActivityTypeLabels[activity.activityType]} ·{" "}
+                          {nurseryName(state, activity.nurseryId)} ·{" "}
+                          {activity.recordedBy}{" "}
+                          <time dateTime={activity.createdAt}>
+                            ({formatRelativeDate(activity.createdAt)})
+                          </time>
+                        </p>
+                      </div>
+                      <VerificationBadge status={activity.status} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Card>
+
+          <Card title="Actions" description="The most common jobs, one tap away.">
+            <div className="mt-4 grid gap-2">
+              {[
+                { href: "/cfa/activities", label: "Record an activity" },
+                { href: "/cfa/nurseries", label: "Add or manage a nursery" },
+                { href: "/cfa/seedbeds", label: "Add a seedbed" },
+                { href: "/cfa/species", label: "Update the species catalogue" },
+                { href: "/cfa/sales", label: "Record a sale" },
+                { href: "/cfa/donations", label: "Record a donation" },
+                { href: "/cfa/planting", label: "Log a planting event" },
+                { href: "/cfa/survival", label: "Add a survival observation" },
+                { href: "/cfa/reports", label: "Generate a report" },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-700 transition-colors hover:border-forest-200 hover:bg-forest-50 hover:text-forest-700"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </div>
+    </PageShell>
   );
 }

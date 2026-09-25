@@ -109,6 +109,10 @@ export function useCfaState(): CfaState {
   return useSyncExternalStore(subscribe, snapshot, () => EMPTY_STATE);
 }
 
+export function getCfaState(): CfaState {
+  return snapshot();
+}
+
 export function updateState(mutate: (state: CfaState) => CfaState) {
   const next = mutate(snapshot());
   writeState(next);
