@@ -37,7 +37,11 @@ export function DashboardOverview() {
       .map((c) => ({ ...c, percent: Math.round((c.count / max) * 100) }));
   }, [submissions]);
 
-  const recent = submissions.slice(0, 8);
+  const topCategories = byCategory.slice(0, 2);
+  const moreCategories = byCategory.length - topCategories.length;
+
+  const recent = submissions.slice(0, 2);
+  const moreReports = submissions.length - recent.length;
 
   return (
     <div>
@@ -105,6 +109,14 @@ export function DashboardOverview() {
                   </li>
                 ))}
               </ul>
+              {moreReports > 0 && (
+                <Link
+                  href="/sihu/my-reports"
+                  className="block border-t border-sand-200 px-6 py-3 text-center text-sm font-medium text-lake-600 hover:text-lake-700 hover:underline"
+                >
+                  {moreReports} more report{moreReports === 1 ? "" : "s"}
+                </Link>
+              )}
             </div>
           )}
         </div>
@@ -112,15 +124,15 @@ export function DashboardOverview() {
         {/* Category breakdown: a supporting view, not a repeat of the stat strip */}
         <div>
           <h2 className="text-lg font-semibold text-ink-900">
-            Reports by category
+            Top categories
           </h2>
-          {byCategory.length === 0 ? (
+          {topCategories.length === 0 ? (
             <p className="mt-4 text-sm text-ink-600">
               No reports submitted from this browser yet.
             </p>
           ) : (
             <div className="mt-4 space-y-4 rounded-2xl bg-white p-6 shadow-lg shadow-forest-950/5">
-              {byCategory.map((c) => (
+              {topCategories.map((c) => (
                 <div key={c.value}>
                   <div className="flex items-center justify-between text-xs text-ink-600">
                     <span>{c.label}</span>
@@ -134,6 +146,12 @@ export function DashboardOverview() {
                   </div>
                 </div>
               ))}
+              {moreCategories > 0 && (
+                <p className="text-xs text-ink-600">
+                  {moreCategories} more categor{moreCategories === 1 ? "y" : "ies"}{" "}
+                  with reports
+                </p>
+              )}
             </div>
           )}
         </div>
