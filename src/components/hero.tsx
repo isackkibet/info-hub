@@ -29,10 +29,10 @@ export function Hero() {
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
-              href="#hubs"
+              href="/dashboard"
               className="rounded-md bg-forest-700 px-6 py-3 text-sm font-semibold text-sand-50 transition-colors hover:bg-forest-800"
             >
-              Explore the Hubs
+              Enter the Platform
             </a>
             <a
               href="#trust-layer"

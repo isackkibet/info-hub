@@ -42,12 +42,12 @@ export function SiteHeader() {
           >
             Build Spec
           </a>
-          <a
-            href="#hubs"
+          <Link
+            href="/dashboard"
             className="rounded-md bg-forest-700 px-4 py-2 text-sm font-medium text-sand-50 transition-colors hover:bg-forest-800"
           >
             Enter Platform
-          </a>
+          </Link>
         </div>
       </div>
     </header>
