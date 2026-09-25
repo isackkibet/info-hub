@@ -12,6 +12,7 @@ const sihuLinks = [
 
 const cfaLinks = [
   { href: "/cfa/dashboard", label: "CFA Hub" },
+  { href: "/cfa/submit", label: "Record Activity" },
 ];
 
 export function AppNav() {
