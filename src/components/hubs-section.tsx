@@ -73,30 +73,19 @@ export function HubsSection() {
               />
 
               <div className="flex flex-1 flex-col p-8">
-                <div className="flex items-center justify-between">
-                  <span
-                    className={
-                      hub.accent === "forest"
-                        ? "text-xs font-semibold uppercase tracking-wide text-forest-700"
-                        : "text-xs font-semibold uppercase tracking-wide text-lake-700"
-                    }
-                  >
-                    {hub.tag}
-                  </span>
-                  <span
-                    className={
-                      hub.accent === "forest"
-                        ? "rounded-full border border-forest-200 bg-forest-50 px-2 py-0.5 text-xs font-medium text-forest-700"
-                        : "rounded-full border border-lake-200 bg-lake-50 px-2 py-0.5 text-xs font-medium text-lake-700"
-                    }
-                  >
-                    {hub.accent === "forest" ? "CFA" : "SIHU"}
-                  </span>
-                </div>
-
-                <h3 className="mt-3 text-2xl font-semibold text-ink-900">
+                {/* Title leads, tag follows as a small subtitle underneath */}
+                <h3 className="text-2xl font-semibold text-ink-900">
                   {hub.name}
                 </h3>
+                <p
+                  className={
+                    hub.accent === "forest"
+                      ? "mt-1 text-xs font-semibold uppercase tracking-wide text-forest-700"
+                      : "mt-1 text-xs font-semibold uppercase tracking-wide text-lake-700"
+                  }
+                >
+                  {hub.tag}
+                </p>
 
                 <p className="mt-4 text-sm leading-relaxed text-ink-700">
                   {hub.description}

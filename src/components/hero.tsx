@@ -14,9 +14,8 @@ export function Hero() {
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
 
-      {/* One directional gradient, dark enough behind the text to read, fading to fully transparent so most of the photo stays visible */}
-      <div className="absolute inset-0 bg-linear-to-r from-forest-950/90 via-forest-950/50 to-transparent" />
-      <div className="absolute inset-0 bg-linear-to-t from-forest-950/40 via-transparent to-transparent" />
+      {/* Single directional gradient, dark enough behind the text to read, fading to the photo itself so most of it stays visible */}
+      <div className="absolute inset-0 bg-linear-to-r from-forest-950/90 via-forest-950/60 to-forest-950/10" />
 
       {/* Content */}
       <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl items-center px-6 py-24 lg:px-8">
