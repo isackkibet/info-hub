@@ -11,12 +11,7 @@ const sihuLinks = [
   { href: "/sihu/my-reports", label: "My Reports" },
 ];
 
-const cfaLinks = [
-  { href: "/cfa/dashboard", label: "CFA Hub" },
-  { href: "/cfa/nurseries", label: "Nurseries" },
-  { href: "/cfa/inventory", label: "Inventory" },
-  { href: "/cfa/verification", label: "Verification" },
-];
+const cfaLinks = [{ href: "/cfa/dashboard", label: "CFA Hub" }];
 
 export function AppNav() {
   const pathname = usePathname();
@@ -26,7 +21,7 @@ export function AppNav() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-sand-200 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
+      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <span className="flex h-9 w-9 items-center justify-center rounded-md bg-forest-900 text-sm font-semibold text-white">
@@ -47,8 +42,8 @@ export function AppNav() {
             href="/dashboard"
             className={
               pathname === "/dashboard"
-                ? "rounded-md bg-forest-900 px-3 py-2 text-sm font-medium text-white"
-                : "rounded-md px-3 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-sand-100 hover:text-ink-900"
+                ? "rounded-md bg-forest-900 px-3 py-2 text-base font-medium text-white"
+                : "rounded-md px-3 py-2 text-base font-medium text-ink-700 transition-colors hover:bg-sand-100 hover:text-ink-900"
             }
           >
             Dashboard
@@ -67,8 +62,8 @@ export function AppNav() {
                 href={link.href}
                 className={
                   active
-                    ? "rounded-md bg-lake-600 px-3 py-2 text-sm font-medium text-white"
-                    : "rounded-md px-3 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-lake-50 hover:text-lake-700"
+                    ? "rounded-md bg-lake-600 px-3 py-2 text-base font-medium text-white"
+                    : "rounded-md px-3 py-2 text-base font-medium text-ink-700 transition-colors hover:bg-lake-50 hover:text-lake-700"
                 }
               >
                 {link.label}
@@ -76,21 +71,21 @@ export function AppNav() {
             );
           })}
 
-          {/* CFA section divider + links */}
+          {/* CFA section divider + link */}
           <span className="mx-1 h-5 w-px bg-sand-200" />
           <span className="px-2 text-xs font-semibold uppercase tracking-wide text-forest-700">
             CFA
           </span>
           {cfaLinks.map((link) => {
-            const active = pathname === link.href;
+            const active = pathname.startsWith("/cfa");
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={
                   active
-                    ? "rounded-md bg-forest-900 px-3 py-2 text-sm font-medium text-white"
-                    : "rounded-md px-3 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-forest-50 hover:text-forest-700"
+                    ? "rounded-md bg-forest-900 px-3 py-2 text-base font-medium text-white"
+                    : "rounded-md px-3 py-2 text-base font-medium text-ink-700 transition-colors hover:bg-forest-50 hover:text-forest-700"
                 }
               >
                 {link.label}
@@ -103,14 +98,14 @@ export function AppNav() {
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="hidden rounded-md border border-sand-200 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-sand-200 hover:bg-sand-50 sm:inline-block"
+            className="hidden rounded-md border border-sand-200 px-4 py-2 text-base font-medium text-ink-700 transition-colors hover:border-sand-200 hover:bg-sand-50 sm:inline-block"
           >
             Overview
           </Link>
           <form action={signOutAction}>
             <button
               type="submit"
-              className="rounded-md border border-sand-200 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-sand-50"
+              className="rounded-md border border-sand-200 px-4 py-2 text-base font-medium text-ink-700 transition-colors hover:bg-sand-50"
             >
               Sign out
             </button>
