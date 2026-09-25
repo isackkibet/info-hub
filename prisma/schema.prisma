@@ -1,0 +1,242 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ===== SHARED =====
+
+model User {
+  id             String           @id @default(cuid())
+  name           String?
+  email          String           @unique
+  passwordHash   String?
+  walletAddress  String?          @unique
+  sihuMembership SihuMembership?
+  cfaMemberships CFAMembership[]
+  submissions    Submission[]
+  createdAt      DateTime         @default(now())
+}
+
+model OnChainBatch {
+  id          String                  @id @default(cuid())
+  merkleRoot  String                  @unique
+  txHash      String?
+  recordCount Int
+  status      BatchStatus             @default(PENDING)
+  committedAt DateTime?
+  createdAt   DateTime                @default(now())
+  submissions Submission[]
+  activities  ConservationActivity[]
+}
+
+enum BatchStatus {
+  PENDING
+  COMMITTED
+  FAILED
+}
+
+// ===== SIHU HUB =====
+
+model SihuMembership {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  role      SihuRole @default(STEWARD)
+  region    String?
+  createdAt DateTime @default(now())
+}
+
+enum SihuRole {
+  STEWARD
+  VALIDATOR
+  ADMIN
+}
+
+model Submission {
+  id             String             @id @default(cuid())
+  userId         String
+  user           User               @relation(fields: [userId], references: [id])
+  title          String
+  category       SubmissionCategory
+  topic          String?
+  quantity       Int                @default(1)
+  locationName   String
+  latitude       Float?
+  longitude      Float?
+  publicMediaUrl String
+  status         SubmissionStatus   @default(PENDING)
+  reviewNotes    String?
+  reviewedById   String?
+  contentHash    String?
+  anchorBatchId  String?
+  anchorBatch    OnChainBatch?      @relation(fields: [anchorBatchId], references: [id])
+  createdAt      DateTime           @default(now())
+}
+
+enum SubmissionCategory {
+  WATER_HYACINTH_TRACKING
+  LAKE_CLEANUP
+  BLUE_ECONOMY_NEWS
+  HUMAN_RIGHTS_REPORT
+  POLLUTION_ALERT
+  COMMUNITY_DEVELOPMENT_NEWS
+}
+
+enum SubmissionStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+  BATCHED
+}
+
+// ===== CFA CONSERVATION HUB =====
+
+model CFA {
+  id          String             @id @default(cuid())
+  name        String
+  region      String
+  description String?
+  members     CFAMembership[]
+  sites       ConservationSite[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+}
+
+model CFAMembership {
+  id        String   @id @default(cuid())
+  userId    String
+  cfaId     String
+  role      CFARole  @default(MEMBER)
+  user      User     @relation(fields: [userId], references: [id])
+  cfa       CFA      @relation(fields: [cfaId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+enum CFARole {
+  MEMBER
+  SITE_MANAGER
+  VERIFIER
+  ADMIN
+}
+
+model ConservationSite {
+  id           String                 @id @default(cuid())
+  cfaId        String
+  cfa          CFA                    @relation(fields: [cfaId], references: [id])
+  name         String
+  description  String?
+  areaHectares Float?
+  latitude     Float?
+  longitude    Float?
+  inventories  TreeInventory[]
+  activities   ConservationActivity[]
+  createdAt    DateTime               @default(now())
+}
+
+model Species {
+  id                 String          @id @default(cuid())
+  commonName         String
+  scientificName     String          @unique
+  localNames         String[]
+  classification     SpeciesCategory
+  purposes           String[]
+  suitableConditions String?
+  inventories        TreeInventory[]
+}
+
+enum SpeciesCategory {
+  INDIGENOUS
+  EXOTIC
+}
+
+model TreeInventory {
+  id             String           @id @default(cuid())
+  siteId         String
+  site           ConservationSite @relation(fields: [siteId], references: [id])
+  speciesId      String
+  species        Species          @relation(fields: [speciesId], references: [id])
+  countPlanted   Int              @default(0)
+  countAvailable Int              @default(0)
+  countSurviving Int              @default(0)
+  events         InventoryEvent[]
+  updatedAt      DateTime         @updatedAt
+
+  @@unique([siteId, speciesId])
+}
+
+model InventoryEvent {
+  id             String        @id @default(cuid())
+  inventoryId    String
+  inventory      TreeInventory @relation(fields: [inventoryId], references: [id])
+  eventType      EventType
+  quantityChange Int
+  notes          String?
+  recordedById   String
+  createdAt      DateTime      @default(now())
+}
+
+enum EventType {
+  ADDITION
+  PLANTING
+  MORTALITY_LOSS
+  TRANSFER
+  SALE
+}
+
+model ConservationActivity {
+  id                 String               @id @default(cuid())
+  siteId             String
+  site               ConservationSite     @relation(fields: [siteId], references: [id])
+  title              String
+  activityType       String
+  description        String
+  participantCount   Int?
+  rawData            Json
+  cleanData          Json?
+  dataQualityStatus  DataQualityStatus    @default(RAW)
+  verificationStatus VerificationStatus   @default(UNVERIFIED)
+  contentHash        String?
+  anchorBatchId      String?
+  anchorBatch        OnChainBatch?        @relation(fields: [anchorBatchId], references: [id])
+  evidence           EvidenceAsset[]
+  verifications      VerificationRecord[]
+  createdById        String
+  createdAt          DateTime             @default(now())
+}
+
+enum DataQualityStatus {
+  RAW
+  NEEDS_CORRECTION
+  CLEAN
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  IN_REVIEW
+  VERIFIED
+  REJECTED
+}
+
+model EvidenceAsset {
+  id         String               @id @default(cuid())
+  activityId String
+  activity   ConservationActivity @relation(fields: [activityId], references: [id])
+  url        String
+  caption    String?
+  fileType   String
+  uploadedAt DateTime             @default(now())
+}
+
+model VerificationRecord {
+  id         String               @id @default(cuid())
+  activityId String
+  activity   ConservationActivity @relation(fields: [activityId], references: [id])
+  verifierId String
+  notes      String
+  status     VerificationStatus
+  verifiedAt DateTime             @default(now())
+}

@@ -1,37 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --background: #F8FAF7;
+  --foreground: #17211B;
 
-  --color-forest-50: #ecfdf5;
-  --color-forest-100: #d1fae5;
-  --color-forest-200: #a7f3d0;
-  --color-forest-300: #6ee7b7;
-  --color-forest-400: #34d399;
-  --color-forest-500: #10b981;
-  --color-forest-600: #059669;
-  --color-forest-700: #047857;
-  --color-forest-800: #065f46;
-  --color-forest-900: #064e3b;
-  --color-forest-950: #022c22;
+  /* ── Forest (Primary brand — Deep Forest Green) ───────────────────── */
+  --color-forest-50:  #F0FDF4;
+  --color-forest-100: #DCFCE7;
+  --color-forest-200: #BBF7D0;
+  --color-forest-300: #86EFAC;
+  --color-forest-400: #4ADE80;
+  --color-forest-500: #22C55E;
+  --color-forest-600: #16A34A;
+  --color-forest-700: #15803D;
+  --color-forest-800: #166534;
+  --color-forest-900: #14532D;
+  --color-forest-950: #052E16;
 
-  --color-lake-50: #eff6ff;
-  --color-lake-100: #dbeafe;
-  --color-lake-300: #93c5fd;
-  --color-lake-500: #3b82f6;
-  --color-lake-600: #2563eb;
-  --color-lake-700: #1d4ed8;
-  --color-lake-900: #1e3a8a;
+  /* ── Lake / SIHU (Environmental accent — Teal) ────────────────────── */
+  --color-lake-50:  #F0FDFA;
+  --color-lake-100: #CCFBF1;
+  --color-lake-200: #99F6E4;
+  --color-lake-300: #5EEAD4;
+  --color-lake-500: #14B8A6;
+  --color-lake-600: #0F766E;
+  --color-lake-700: #0D5F57;
+  --color-lake-900: #134E4A;
 
-  --color-sand-50: #ffffff;
-  --color-sand-100: #f8fafc;
-  --color-sand-200: #e2e8f0;
+  /* ── Sand (Backgrounds & surfaces) ───────────────────────────────── */
+  --color-sand-50:  #F8FAF7;
+  --color-sand-100: #F0F4EF;
+  --color-sand-200: #DDE5DF;
 
-  --color-ink-600: #64748b;
-  --color-ink-700: #475569;
-  --color-ink-800: #334155;
-  --color-ink-900: #0f172a;
+  /* ── Ink (Text & UI chrome) ───────────────────────────────────────── */
+  --color-ink-600: #647067;
+  --color-ink-700: #3E4D43;
+  --color-ink-800: #27342B;
+  --color-ink-900: #17211B;
 }
 
 @theme inline {
@@ -40,7 +45,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --color-forest-50: var(--color-forest-50);
+  --color-forest-50:  var(--color-forest-50);
   --color-forest-100: var(--color-forest-100);
   --color-forest-200: var(--color-forest-200);
   --color-forest-300: var(--color-forest-300);
@@ -52,15 +57,16 @@
   --color-forest-900: var(--color-forest-900);
   --color-forest-950: var(--color-forest-950);
 
-  --color-lake-50: var(--color-lake-50);
+  --color-lake-50:  var(--color-lake-50);
   --color-lake-100: var(--color-lake-100);
+  --color-lake-200: var(--color-lake-200);
   --color-lake-300: var(--color-lake-300);
   --color-lake-500: var(--color-lake-500);
   --color-lake-600: var(--color-lake-600);
   --color-lake-700: var(--color-lake-700);
   --color-lake-900: var(--color-lake-900);
 
-  --color-sand-50: var(--color-sand-50);
+  --color-sand-50:  var(--color-sand-50);
   --color-sand-100: var(--color-sand-100);
   --color-sand-200: var(--color-sand-200);
 
