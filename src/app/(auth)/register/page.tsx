@@ -14,7 +14,7 @@ export default function RegisterPage() {
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-forest-950/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-forest-950/30 to-forest-950/80" />
+        <div className="absolute inset-0 bg-linear-to-r from-forest-950/30 to-forest-950/80" />
 
         {/* Branding overlay */}
         <div className="relative flex h-full flex-col justify-between p-12">
@@ -40,10 +40,10 @@ export default function RegisterPage() {
 
             <div className="mt-6 flex gap-3">
               <span className="rounded-full border border-lake-300/40 bg-lake-900/50 px-3 py-1 text-xs font-medium text-lake-300 backdrop-blur-sm">
-                🌊 SIHU
+                SIHU
               </span>
               <span className="rounded-full border border-forest-300/40 bg-forest-900/50 px-3 py-1 text-xs font-medium text-forest-300 backdrop-blur-sm">
-                🌲 CFA
+                CFA
               </span>
             </div>
           </div>
@@ -69,7 +69,7 @@ export default function RegisterPage() {
             Create your account
           </h1>
           <p className="mt-1 text-sm text-ink-600">
-            Join SIHU or CFA — an admin will assign your hub membership.
+            Join SIHU or CFA, and an admin will assign your hub membership.
           </p>
 
           <div className="mt-8">

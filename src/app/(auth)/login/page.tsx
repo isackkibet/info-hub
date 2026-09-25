@@ -23,7 +23,7 @@ export default async function LoginPage({
         />
         {/* Dark forest overlay so branding text is readable */}
         <div className="absolute inset-0 bg-forest-950/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-forest-950/30 to-forest-950/80" />
+        <div className="absolute inset-0 bg-linear-to-r from-forest-950/30 to-forest-950/80" />
 
         {/* Branding overlay content */}
         <div className="relative flex h-full flex-col justify-between p-12">
@@ -43,16 +43,16 @@ export default async function LoginPage({
               <span className="text-forest-300">you can trust.</span>
             </h2>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
-              SIHU and CFA — two hubs, one shared proof layer, anchored on Avalanche.
+              SIHU and CFA: two hubs, one shared proof layer, anchored on Avalanche.
             </p>
 
             {/* Hub badges */}
             <div className="mt-6 flex gap-3">
               <span className="rounded-full border border-lake-300/40 bg-lake-900/50 px-3 py-1 text-xs font-medium text-lake-300 backdrop-blur-sm">
-                🌊 SIHU
+                SIHU
               </span>
               <span className="rounded-full border border-forest-300/40 bg-forest-900/50 px-3 py-1 text-xs font-medium text-forest-300 backdrop-blur-sm">
-                🌲 CFA
+                CFA
               </span>
             </div>
           </div>
@@ -83,8 +83,9 @@ export default async function LoginPage({
 
           {/* Success banner after registration */}
           {justRegistered && (
-            <div className="mt-5 rounded-xl border border-forest-200 bg-forest-50 px-4 py-3 text-sm text-forest-800">
-              ✓ Account created — sign in below to get started.
+            <div className="mt-5 flex items-start gap-2.5 rounded-xl bg-forest-50 px-4 py-3 text-sm text-forest-800">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-forest-600" />
+              <p>Account created. Sign in below to get started.</p>
             </div>
           )}
 
@@ -104,7 +105,7 @@ export default async function LoginPage({
           </p>
 
           {/* Demo hint */}
-          <p className="mt-4 rounded-lg border border-sand-200 bg-sand-100 px-3 py-2 text-center text-xs text-ink-600">
+          <p className="mt-4 rounded-lg bg-sand-100 px-3 py-2 text-center text-xs text-ink-600">
             Demo:{" "}
             <span className="font-mono font-medium text-ink-800">demo@kainuvari.test</span>
             {" / "}

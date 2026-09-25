@@ -25,9 +25,9 @@ export function Hero() {
       {/* Base dark wash over the whole image */}
       <div className="absolute inset-0 bg-forest-950/75" />
       {/* Stronger left-to-right fade so left text column is always readable */}
-      <div className="absolute inset-0 bg-gradient-to-r from-forest-950/90 via-forest-950/60 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-forest-950/90 via-forest-950/60 to-transparent" />
       {/* Subtle vertical vignette top + bottom */}
-      <div className="absolute inset-0 bg-gradient-to-b from-forest-950/40 via-transparent to-forest-950/60" />
+      <div className="absolute inset-0 bg-linear-to-b from-forest-950/40 via-transparent to-forest-950/60" />
 
       {/* ── Content ── */}
       <div className="relative mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-2 lg:items-center lg:py-32 lg:px-8">
@@ -47,7 +47,7 @@ export function Hero() {
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-forest-100/90 drop-shadow">
             The SIHU News Hub and the CFA Conservation Hub turn scattered
             environmental and conservation information into structured,
-            trustworthy records — verified by real people and backed by
+            trustworthy records, verified by real people and backed by
             one shared proof layer.
           </p>
 
@@ -123,7 +123,7 @@ export function Hero() {
             <div className="mt-6 flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
               <span className="h-2 w-2 shrink-0 rounded-full bg-gold-400 shadow-sm shadow-gold-400/60" />
               <p className="text-xs text-white/70">
-                No wallets required — anchoring is automatic and invisible to field users.
+                No wallets required. Anchoring is automatic and invisible to field users.
               </p>
             </div>
           </div>
