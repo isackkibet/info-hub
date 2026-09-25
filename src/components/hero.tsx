@@ -1,10 +1,3 @@
-const flowSteps = [
-  { label: "Field submission", detail: "Reporters and CFA members capture data on the ground" },
-  { label: "Clean and validate", detail: "Automated checks catch structural and logic errors" },
-  { label: "Human verification", detail: "Validators and verifiers review evidence and confirm" },
-  { label: "Secure proof", detail: "Verified records are sealed into one tamper-evident proof" },
-];
-
 export function Hero() {
   return (
     <section
@@ -22,15 +15,13 @@ export function Hero() {
       />
 
       {/* Overlays — keep text readable */}
-      <div className="absolute inset-0 bg-forest-950/80" />
-      <div className="absolute inset-0 bg-linear-to-r from-forest-950/95 via-forest-950/70 to-forest-950/40" />
-      <div className="absolute inset-0 bg-linear-to-b from-forest-950/30 via-transparent to-forest-950/50" />
+      <div className="absolute inset-0 bg-forest-950/70" />
+      <div className="absolute inset-0 bg-linear-to-r from-forest-950/85 via-forest-950/50 to-forest-950/20" />
+      <div className="absolute inset-0 bg-linear-to-b from-forest-950/20 via-transparent to-forest-950/40" />
 
       {/* Content */}
-      <div className="relative mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-2 lg:items-center lg:py-32 lg:px-8">
-
-        {/* Left column */}
-        <div>
+      <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl items-center px-6 py-24 lg:px-8">
+        <div className="max-w-2xl">
           <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white backdrop-blur-sm">
             Unified Environmental Info Hub
           </span>
@@ -77,61 +68,6 @@ export function Hero() {
             </div>
           </div>
         </div>
-
-        {/* Right column — solid card so background never bleeds through */}
-        <div className="relative">
-          {/* Soft glow halo */}
-          <div className="absolute -inset-4 rounded-3xl bg-forest-400/15 blur-2xl" />
-
-          <div className="relative overflow-hidden rounded-2xl bg-forest-950/90 shadow-2xl ring-1 ring-white/10 backdrop-blur-md">
-
-            {/* Card header */}
-            <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
-                Record lifecycle
-              </p>
-              <span className="rounded-full border border-gold-400/40 bg-gold-500/20 px-3 py-1 text-xs font-semibold text-gold-300">
-                Avalanche anchored
-              </span>
-            </div>
-
-            {/* Steps */}
-            <ol className="px-6 py-5">
-              {flowSteps.map((step, index) => (
-                <li key={step.label} className="flex gap-4">
-                  {/* Number + connector */}
-                  <div className="flex flex-col items-center">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest-600 text-xs font-bold text-white ring-1 ring-forest-400/40">
-                      {index + 1}
-                    </span>
-                    {index < flowSteps.length - 1 && (
-                      <span className="my-1 w-px flex-1 bg-white/15" style={{ minHeight: "1.5rem" }} />
-                    )}
-                  </div>
-
-                  {/* Text */}
-                  <div className={index < flowSteps.length - 1 ? "pb-4" : "pb-1"}>
-                    <p className="text-sm font-semibold text-white">
-                      {step.label}
-                    </p>
-                    <p className="mt-0.5 text-sm leading-relaxed text-white/60">
-                      {step.detail}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-
-            {/* Trust badge */}
-            <div className="flex items-center gap-3 border-t border-white/10 bg-white/5 px-6 py-4">
-              <span className="h-2 w-2 shrink-0 rounded-full bg-gold-400 shadow-sm shadow-gold-400/60" />
-              <p className="text-xs text-white/60">
-                No wallets required. Anchoring is automatic and invisible to field users.
-              </p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
   );
