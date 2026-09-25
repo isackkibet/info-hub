@@ -21,7 +21,7 @@ export function ReportsTable() {
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-sand-200 bg-white">
+    <div className="overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-950/5">
       <table className="w-full text-left text-sm">
         <thead className="border-b border-sand-200 bg-sand-100 text-xs uppercase tracking-wide text-ink-600">
           <tr>

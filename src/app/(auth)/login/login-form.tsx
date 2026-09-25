@@ -14,7 +14,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
   return (
     <form
       action={formAction}
-      className="space-y-5 rounded-2xl border border-sand-200 bg-white p-8 shadow-sm"
+      className="space-y-5 rounded-2xl bg-white p-8 shadow-lg shadow-forest-950/5"
     >
       <input type="hidden" name="callbackUrl" value={callbackUrl} />
 

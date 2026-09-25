@@ -24,18 +24,18 @@ export default function CfaDashboardPage() {
             as they go live.
           </p>
 
-          {/* Stat cards */}
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <StatCard label="Active sites" value={cfaTotals.activeSites} />
-            <StatCard
+          {/* Stat strip */}
+          <div className="mt-10 grid grid-cols-2 divide-y divide-sand-200 overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-950/5 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
+            <Stat label="Active sites" value={cfaTotals.activeSites} />
+            <Stat
               label="Trees recorded"
               value={cfaTotals.totalTrees.toLocaleString()}
             />
-            <StatCard
+            <Stat
               label="Trees surviving"
               value={cfaTotals.surviving.toLocaleString()}
             />
-            <StatCard label="Species tracked" value={cfaTotals.speciesCount} />
+            <Stat label="Species tracked" value={cfaTotals.speciesCount} />
           </div>
 
           <div className="mt-12 grid gap-8 lg:grid-cols-[3fr_2fr]">
@@ -48,7 +48,7 @@ export default function CfaDashboardPage() {
                 {cfaSites.map((site) => (
                   <div
                     key={site.name}
-                    className="overflow-hidden rounded-2xl border border-sand-200 bg-white"
+                    className="overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-950/5"
                   >
                     <div className="h-1 w-full bg-forest-600" />
                     <div className="p-6">
@@ -88,7 +88,7 @@ export default function CfaDashboardPage() {
 
             <div className="space-y-8">
               {/* Verification pipeline */}
-              <div className="rounded-2xl border border-sand-200 bg-white p-6">
+              <div className="rounded-2xl bg-white p-6 shadow-lg shadow-forest-950/5">
                 <h2 className="text-lg font-semibold text-ink-900">
                   Verification pipeline
                 </h2>
@@ -118,7 +118,7 @@ export default function CfaDashboardPage() {
               </div>
 
               {/* Species registry */}
-              <div className="rounded-2xl border border-sand-200 bg-white p-6">
+              <div className="rounded-2xl bg-white p-6 shadow-lg shadow-forest-950/5">
                 <h2 className="text-lg font-semibold text-ink-900">
                   Species registry sample
                 </h2>
@@ -149,16 +149,13 @@ export default function CfaDashboardPage() {
   );
 }
 
-function StatCard({ label, value }: { label: string; value: string | number }) {
+function Stat({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-sand-200 bg-white">
-      <div className="h-1 w-full bg-forest-600" />
-      <div className="p-6">
-        <p className="text-xs font-medium uppercase tracking-wide text-ink-600">
-          {label}
-        </p>
-        <p className="mt-2 text-2xl font-semibold text-ink-900">{value}</p>
-      </div>
+    <div className="px-6 py-5">
+      <p className="text-xs font-medium uppercase tracking-wide text-ink-600">
+        {label}
+      </p>
+      <p className="mt-2 text-2xl font-semibold text-ink-900">{value}</p>
     </div>
   );
 }

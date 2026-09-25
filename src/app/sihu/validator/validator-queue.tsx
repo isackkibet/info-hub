@@ -64,7 +64,7 @@ export function ValidatorQueue() {
         {visible.map((submission) => (
           <div
             key={submission.id}
-            className="rounded-2xl border border-sand-200 bg-white p-6"
+            className="rounded-2xl bg-white p-6 shadow-lg shadow-forest-950/5"
           >
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>

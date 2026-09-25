@@ -43,10 +43,10 @@ export function Principles() {
             <div
               key={principle.title}
               className={
-                "flex flex-col rounded-2xl border bg-white p-6 " +
+                "flex flex-col rounded-2xl bg-white p-6 shadow-lg shadow-forest-950/5 border-l-4 " +
                 (principle.accent === "forest"
-                  ? "border-l-4 border-forest-200 border-l-forest-600"
-                  : "border-l-4 border-lake-200 border-l-lake-600")
+                  ? "border-l-forest-600"
+                  : "border-l-lake-600")
               }
             >
               <h3 className="text-base font-semibold text-ink-900">

@@ -27,7 +27,7 @@ const pipeline = [
 
 export function TrustLayer() {
   return (
-    <section id="trust-layer" className="border-b border-sand-200 bg-white">
+    <section id="trust-layer" className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
         <div className="max-w-2xl">
           <span className="text-xs font-semibold uppercase tracking-wide text-forest-700">
@@ -43,13 +43,18 @@ export function TrustLayer() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-sand-200 bg-sand-200 sm:grid-cols-2 lg:grid-cols-4">
-          {pipeline.map((item) => (
-            <div key={item.step} className="bg-white p-6">
-              <span className="text-xs font-semibold tabular-nums text-forest-600">
-                {item.step}
-              </span>
-              <h3 className="mt-3 text-base font-semibold text-ink-900">
+        <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {pipeline.map((item, index) => (
+            <div key={item.step} className="relative pl-1">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest-900 text-sm font-semibold tabular-nums text-white">
+                  {item.step}
+                </span>
+                {index < pipeline.length - 1 && (
+                  <span className="hidden h-px flex-1 bg-sand-200 lg:block" />
+                )}
+              </div>
+              <h3 className="mt-4 text-base font-semibold text-ink-900">
                 {item.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-600">
@@ -60,8 +65,8 @@ export function TrustLayer() {
         </div>
 
         {/* Trust callout */}
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-2xl border border-forest-100 bg-forest-50 p-6">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2">
+          <div className="rounded-2xl bg-forest-50 p-6">
             <p className="text-xs font-semibold uppercase tracking-wide text-forest-800">
               No wallets, no gas fees
             </p>
@@ -71,7 +76,7 @@ export function TrustLayer() {
               on their behalf.
             </p>
           </div>
-          <div className="rounded-2xl border border-lake-100 bg-lake-50 p-6">
+          <div className="rounded-2xl bg-lake-50 p-6">
             <p className="text-xs font-semibold uppercase tracking-wide text-lake-700">
               SIHU + CFA, one chain
             </p>

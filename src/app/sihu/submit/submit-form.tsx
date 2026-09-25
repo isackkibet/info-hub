@@ -44,7 +44,7 @@ export function SubmitForm() {
 
   if (trackingId) {
     return (
-      <div className="rounded-2xl border border-sand-200 bg-white p-8">
+      <div className="rounded-2xl bg-white p-8 shadow-lg shadow-forest-950/5">
         <span className="inline-flex items-center rounded-full border border-lake-200 bg-lake-50 px-3 py-1 text-xs font-medium text-lake-700">
           Submitted
         </span>
@@ -80,7 +80,7 @@ export function SubmitForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 rounded-2xl border border-sand-200 bg-white p-8"
+      className="space-y-6 rounded-2xl bg-white p-8 shadow-lg shadow-forest-950/5"
       noValidate
     >
       <div>

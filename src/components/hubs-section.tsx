@@ -61,7 +61,7 @@ export function HubsSection() {
           {hubs.map((hub) => (
             <div
               key={hub.name}
-              className="flex flex-col overflow-hidden rounded-2xl border border-sand-200 bg-white"
+              className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-950/5"
             >
               {/* Accent strip */}
               <div
