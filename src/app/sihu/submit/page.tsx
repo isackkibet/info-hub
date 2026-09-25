@@ -1,4 +1,5 @@
 import { AppNav } from "@/components/app-nav";
+import { PreviewNotice } from "@/components/preview-notice";
 import { SubmitForm } from "./submit-form";
 
 export default function SihuSubmitPage() {
@@ -17,6 +18,11 @@ export default function SihuSubmitPage() {
             Post your photo or video publicly first, then fill in this form.
             No file uploads required.
           </p>
+          <PreviewNotice>
+            Preview mode: reports submitted here are saved in this browser
+            only. They are not yet stored in the shared database, so other
+            people and other devices will not see them.
+          </PreviewNotice>
 
           <div className="mt-10">
             <SubmitForm />

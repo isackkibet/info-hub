@@ -1,4 +1,5 @@
 import { AppNav } from "@/components/app-nav";
+import { PreviewNotice } from "@/components/preview-notice";
 import {
   cfaPipeline,
   cfaSites,
@@ -19,10 +20,14 @@ export default function CfaDashboardPage() {
             Kapsabet Forest Association
           </h1>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-700">
-            A preview with sample data. Site management, species records,
-            offline field submission, and live verification will appear here
-            as they go live.
+            Site management, species records, offline field submission, and
+            live verification will appear here as they go live.
           </p>
+          <PreviewNotice>
+            Preview mode: every number on this page is sample data for
+            layout purposes. No real sites, species, or activity are
+            connected yet.
+          </PreviewNotice>
 
           {/* Stat strip */}
           <div className="mt-10 grid grid-cols-2 divide-y divide-sand-200 overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-950/5 sm:divide-x sm:divide-y-0 lg:grid-cols-4">

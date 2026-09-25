@@ -1,4 +1,5 @@
 import { AppNav } from "@/components/app-nav";
+import { PreviewNotice } from "@/components/preview-notice";
 import { ValidatorQueue } from "./validator-queue";
 
 export default function ValidatorPage() {
@@ -17,6 +18,11 @@ export default function ValidatorPage() {
             Open each report&apos;s media link, check that the location and
             content are plausible, then approve or reject with a reason.
           </p>
+          <PreviewNotice>
+            Preview mode: this queue only shows reports submitted from this
+            browser. Approvals and rejections here are not saved to the
+            shared database yet.
+          </PreviewNotice>
 
           <div className="mt-10">
             <ValidatorQueue />
