@@ -1,17 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   CATEGORY_LABELS,
+  CATEGORY_OPTIONS,
   statusStyles,
   updateSubmissionStatus,
   useSihuSubmissions,
+  type SihuCategory,
 } from "@/lib/sihu";
+import { formatRelativeDate } from "@/lib/format-date";
 
 export function ValidatorQueue() {
   const submissions = useSihuSubmissions();
   const [notes, setNotes] = useState<Record<string, string>>({});
-  const [filter, setFilter] = useState<"PENDING" | "ALL">("PENDING");
+  const [statusFilter, setStatusFilter] = useState<"PENDING" | "ALL">("PENDING");
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<SihuCategory | "ALL">("ALL");
 
   function handleDecision(id: string, decision: "VERIFIED" | "REJECTED") {
     const note = notes[id]?.trim();
@@ -22,40 +27,94 @@ export function ValidatorQueue() {
     updateSubmissionStatus(id, decision, note || undefined);
   }
 
-  const visible = submissions.filter((s) =>
-    filter === "PENDING" ? s.status === "PENDING" : true,
-  );
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return submissions.filter((s) => {
+      const matchesStatus =
+        statusFilter === "PENDING" ? s.status === "PENDING" : true;
+      const matchesCategory = category === "ALL" || s.category === category;
+      const matchesQuery =
+        !q ||
+        s.title.toLowerCase().includes(q) ||
+        s.locationName.toLowerCase().includes(q) ||
+        s.reporterName.toLowerCase().includes(q);
+      return matchesStatus && matchesCategory && matchesQuery;
+    });
+  }, [submissions, statusFilter, category, query]);
 
   return (
     <div>
-      {/* Filter toggle */}
-      <div className="mb-6 flex items-center gap-2">
-        <button
-          type="button"
-          onClick={() => setFilter("PENDING")}
-          className={
-            filter === "PENDING"
-              ? "rounded-md bg-lake-600 px-3 py-1.5 text-xs font-medium text-white"
-              : "rounded-md border border-sand-200 px-3 py-1.5 text-xs font-medium text-ink-700 hover:bg-sand-100"
-          }
-        >
-          Pending only
-        </button>
-        <button
-          type="button"
-          onClick={() => setFilter("ALL")}
-          className={
-            filter === "ALL"
-              ? "rounded-md bg-lake-600 px-3 py-1.5 text-xs font-medium text-white"
-              : "rounded-md border border-sand-200 px-3 py-1.5 text-xs font-medium text-ink-700 hover:bg-sand-100"
-          }
-        >
-          All reports
-        </button>
+      {/* Filters */}
+      <div className="mb-6 space-y-3">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setStatusFilter("PENDING")}
+            aria-pressed={statusFilter === "PENDING"}
+            className={
+              statusFilter === "PENDING"
+                ? "rounded-md bg-lake-600 px-3 py-1.5 text-xs font-medium text-white"
+                : "rounded-md border border-sand-200 px-3 py-1.5 text-xs font-medium text-ink-700 hover:bg-sand-100"
+            }
+          >
+            Pending only
+          </button>
+          <button
+            type="button"
+            onClick={() => setStatusFilter("ALL")}
+            aria-pressed={statusFilter === "ALL"}
+            className={
+              statusFilter === "ALL"
+                ? "rounded-md bg-lake-600 px-3 py-1.5 text-xs font-medium text-white"
+                : "rounded-md border border-sand-200 px-3 py-1.5 text-xs font-medium text-ink-700 hover:bg-sand-100"
+            }
+          >
+            All reports
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex-1">
+            <label htmlFor="queue-search" className="sr-only">
+              Search the queue
+            </label>
+            <input
+              id="queue-search"
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search by title, location, or reporter"
+              className="w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+            />
+          </div>
+          <div>
+            <label htmlFor="queue-category" className="sr-only">
+              Filter by category
+            </label>
+            <select
+              id="queue-category"
+              value={category}
+              onChange={(event) =>
+                setCategory(event.target.value as SihuCategory | "ALL")
+              }
+              className="w-full rounded-md border border-sand-200 bg-white px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600 sm:w-auto"
+            >
+              <option value="ALL">All categories</option>
+              {CATEGORY_OPTIONS.map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
 
       {visible.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-sand-200 p-10 text-center text-sm text-ink-600">
+        <div
+          role="status"
+          className="rounded-2xl border border-dashed border-sand-200 p-10 text-center text-sm text-ink-600"
+        >
           No reports in this view.
         </div>
       )}
@@ -78,6 +137,10 @@ export function ValidatorQueue() {
                   {CATEGORY_LABELS[submission.category]} in{" "}
                   {submission.locationName}, reported by{" "}
                   {submission.reporterName}
+                  {" "}
+                  <time dateTime={submission.createdAt}>
+                    ({formatRelativeDate(submission.createdAt)})
+                  </time>
                 </p>
               </div>
               <span

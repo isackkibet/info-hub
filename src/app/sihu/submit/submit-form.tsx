@@ -44,7 +44,11 @@ export function SubmitForm() {
 
   if (trackingId) {
     return (
-      <div className="rounded-2xl bg-white p-8 shadow-lg shadow-forest-950/5">
+      <div
+        role="status"
+        aria-live="polite"
+        className="rounded-2xl bg-white p-8 shadow-lg shadow-forest-950/5"
+      >
         <span className="inline-flex items-center rounded-full border border-lake-200 bg-lake-50 px-3 py-1 text-xs font-medium text-lake-700">
           Submitted
         </span>
@@ -90,12 +94,16 @@ export function SubmitForm() {
         <input
           id="reporterName"
           type="text"
+          required
+          aria-required="true"
+          aria-invalid={errors.reporterName ? "true" : undefined}
+          aria-describedby={errors.reporterName ? "reporterName-error" : undefined}
           {...register("reporterName")}
           className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
           placeholder="e.g. Otieno"
         />
         {errors.reporterName && (
-          <p className="mt-1 text-xs text-red-600">
+          <p id="reporterName-error" role="alert" className="mt-1 text-xs text-red-600">
             {errors.reporterName.message}
           </p>
         )}
@@ -108,12 +116,18 @@ export function SubmitForm() {
         <input
           id="title"
           type="text"
+          required
+          aria-required="true"
+          aria-invalid={errors.title ? "true" : undefined}
+          aria-describedby={errors.title ? "title-error" : undefined}
           {...register("title")}
           className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
           placeholder="e.g. Water hyacinth spreading near Dunga Beach"
         />
         {errors.title && (
-          <p className="mt-1 text-xs text-red-600">{errors.title.message}</p>
+          <p id="title-error" role="alert" className="mt-1 text-xs text-red-600">
+            {errors.title.message}
+          </p>
         )}
       </div>
 
@@ -124,6 +138,8 @@ export function SubmitForm() {
           </label>
           <select
             id="category"
+            required
+            aria-required="true"
             {...register("category")}
             className="mt-2 w-full rounded-md border border-sand-200 bg-white px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
           >
@@ -158,11 +174,15 @@ export function SubmitForm() {
             id="quantity"
             type="number"
             min={1}
+            required
+            aria-required="true"
+            aria-invalid={errors.quantity ? "true" : undefined}
+            aria-describedby={errors.quantity ? "quantity-error" : undefined}
             {...register("quantity")}
             className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
           />
           {errors.quantity && (
-            <p className="mt-1 text-xs text-red-600">
+            <p id="quantity-error" role="alert" className="mt-1 text-xs text-red-600">
               {errors.quantity.message}
             </p>
           )}
@@ -202,12 +222,16 @@ export function SubmitForm() {
         <input
           id="locationName"
           type="text"
+          required
+          aria-required="true"
+          aria-invalid={errors.locationName ? "true" : undefined}
+          aria-describedby={errors.locationName ? "locationName-error" : undefined}
           {...register("locationName")}
           className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
           placeholder="e.g. Dunga Beach, Kisumu"
         />
         {errors.locationName && (
-          <p className="mt-1 text-xs text-red-600">
+          <p id="locationName-error" role="alert" className="mt-1 text-xs text-red-600">
             {errors.locationName.message}
           </p>
         )}
@@ -220,16 +244,24 @@ export function SubmitForm() {
         <input
           id="publicMediaUrl"
           type="text"
+          required
+          aria-required="true"
+          aria-invalid={errors.publicMediaUrl ? "true" : undefined}
+          aria-describedby={
+            errors.publicMediaUrl
+              ? "publicMediaUrl-hint publicMediaUrl-error"
+              : "publicMediaUrl-hint"
+          }
           {...register("publicMediaUrl")}
           className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
           placeholder="https://instagram.com/p/..."
         />
-        <p className="mt-1 text-xs text-ink-600">
+        <p id="publicMediaUrl-hint" className="mt-1 text-xs text-ink-600">
           Post your photo or video publicly first, then paste the link here.
           No file uploads.
         </p>
         {errors.publicMediaUrl && (
-          <p className="mt-1 text-xs text-red-600">
+          <p id="publicMediaUrl-error" role="alert" className="mt-1 text-xs text-red-600">
             {errors.publicMediaUrl.message}
           </p>
         )}
