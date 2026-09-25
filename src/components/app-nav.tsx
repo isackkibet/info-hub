@@ -4,34 +4,58 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOutAction } from "@/lib/auth-actions";
 
-const links = [
-  { href: "/dashboard", label: "Dashboard" },
+const sihuLinks = [
   { href: "/sihu/submit", label: "Submit Report" },
   { href: "/sihu/validator", label: "Validator Queue" },
   { href: "/sihu/my-reports", label: "My Reports" },
+];
+
+const cfaLinks = [
   { href: "/cfa/dashboard", label: "CFA Hub" },
 ];
 
 export function AppNav() {
   const pathname = usePathname();
 
+  const isSihu = pathname.startsWith("/sihu");
+  const isCfa = pathname.startsWith("/cfa");
+
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-sand-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
+        {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-forest-600 text-sm font-semibold text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-forest-900 text-sm font-semibold text-white">
             KN
           </span>
           <span className="flex flex-col leading-none">
             <span className="text-sm font-semibold tracking-wide text-ink-900">
               KAI NUVARI
             </span>
-            <span className="text-xs text-ink-600">Info Hub</span>
+            <span className="text-xs text-ink-600">Environmental Info Hub</span>
           </span>
         </Link>
 
+        {/* Nav links */}
         <nav className="hidden items-center gap-1 md:flex">
-          {links.map((link) => {
+          {/* Dashboard — always visible */}
+          <Link
+            href="/dashboard"
+            className={
+              pathname === "/dashboard"
+                ? "rounded-md bg-forest-900 px-3 py-2 text-sm font-medium text-white"
+                : "rounded-md px-3 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-sand-100 hover:text-ink-900"
+            }
+          >
+            Dashboard
+          </Link>
+
+          {/* SIHU section divider + links */}
+          <span className="mx-1 h-5 w-px bg-sand-200" />
+          <span className="px-2 text-xs font-semibold uppercase tracking-wide text-lake-600">
+            SIHU
+          </span>
+          {sihuLinks.map((link) => {
             const active = pathname === link.href;
             return (
               <Link
@@ -39,7 +63,29 @@ export function AppNav() {
                 href={link.href}
                 className={
                   active
-                    ? "rounded-md bg-forest-600 px-3 py-2 text-sm font-medium text-white"
+                    ? "rounded-md bg-lake-600 px-3 py-2 text-sm font-medium text-white"
+                    : "rounded-md px-3 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-lake-50 hover:text-lake-700"
+                }
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+
+          {/* CFA section divider + links */}
+          <span className="mx-1 h-5 w-px bg-sand-200" />
+          <span className="px-2 text-xs font-semibold uppercase tracking-wide text-forest-700">
+            CFA
+          </span>
+          {cfaLinks.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={
+                  active
+                    ? "rounded-md bg-forest-900 px-3 py-2 text-sm font-medium text-white"
                     : "rounded-md px-3 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-forest-50 hover:text-forest-700"
                 }
               >
@@ -49,23 +95,47 @@ export function AppNav() {
           })}
         </nav>
 
+        {/* Right side */}
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="hidden rounded-md border border-slate-200 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-forest-300 hover:text-forest-700 sm:inline-block"
+            className="hidden rounded-md border border-sand-200 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-sand-200 hover:bg-sand-50 sm:inline-block"
           >
-            Back to overview
+            Overview
           </Link>
           <form action={signOutAction}>
             <button
               type="submit"
-              className="rounded-md border border-slate-200 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-forest-300 hover:text-forest-700"
+              className="rounded-md border border-sand-200 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-sand-50"
             >
               Sign out
             </button>
           </form>
         </div>
       </div>
+
+      {/* Hub context bar — only shown inside a hub */}
+      {(isSihu || isCfa) && (
+        <div
+          className={
+            isSihu
+              ? "border-t border-lake-100 bg-lake-50 px-6 py-1.5 lg:px-8"
+              : "border-t border-forest-100 bg-forest-50 px-6 py-1.5 lg:px-8"
+          }
+        >
+          <span
+            className={
+              isSihu
+                ? "text-xs font-medium text-lake-700"
+                : "text-xs font-medium text-forest-700"
+            }
+          >
+            {isSihu
+              ? "SIHU: Sango Information Hub, Lake Victoria Basin"
+              : "CFA: Community Forest Association Conservation Hub"}
+          </span>
+        </div>
+      )}
     </header>
   );
 }

@@ -10,15 +10,18 @@ export default async function LoginPage({
   const callbackUrl = params.callbackUrl ?? "/dashboard";
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
+    <main className="flex min-h-screen items-center justify-center bg-sand-50 px-6">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center">
           <Link href="/" className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-forest-600 text-sm font-semibold text-white">
+            <span className="flex h-11 w-11 items-center justify-center rounded-md bg-forest-900 text-sm font-semibold text-white">
               KN
             </span>
           </Link>
-          <h1 className="mt-4 text-2xl font-semibold tracking-tight text-ink-900">
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-forest-700">
+            KAI NUVARI
+          </p>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-ink-900">
             Sign in to Info Hub
           </h1>
           <p className="mt-1 text-sm text-ink-600">
@@ -29,7 +32,10 @@ export default async function LoginPage({
         <LoginForm callbackUrl={callbackUrl} />
 
         <p className="mt-6 text-center text-xs text-ink-600">
-          Demo account: demo@kainuvari.test / password123
+          Demo account:{" "}
+          <span className="font-mono font-medium text-ink-800">
+            demo@kainuvari.test / password123
+          </span>
         </p>
       </div>
     </main>

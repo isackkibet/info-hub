@@ -14,7 +14,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
   return (
     <form
       action={formAction}
-      className="space-y-5 rounded-2xl border border-slate-200 bg-white p-8"
+      className="space-y-5 rounded-2xl border border-sand-200 bg-white p-8 shadow-sm"
     >
       <input type="hidden" name="callbackUrl" value={callbackUrl} />
 
@@ -28,7 +28,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
           type="email"
           autoComplete="email"
           required
-          className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+          className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
           placeholder="you@example.com"
         />
       </div>
@@ -43,8 +43,8 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
           type="password"
           autoComplete="current-password"
           required
-          className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
-          placeholder="********"
+          className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+          placeholder="••••••••"
         />
       </div>
 
@@ -57,9 +57,9 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-md bg-forest-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-forest-700 disabled:opacity-60"
+        className="w-full rounded-md bg-forest-900 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-forest-800 disabled:opacity-60"
       >
-        {pending ? "Signing in..." : "Sign in"}
+        {pending ? "Signing in…" : "Sign in"}
       </button>
     </form>
   );

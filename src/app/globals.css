@@ -27,6 +27,16 @@
   --color-lake-700: #0D5F57;
   --color-lake-900: #134E4A;
 
+  /* ── Gold (Restrained accent — highlights, primary CTA on dark) ───── */
+  --color-gold-50:  #FFFBEB;
+  --color-gold-100: #FEF3C7;
+  --color-gold-200: #FDE68A;
+  --color-gold-300: #FCD34D;
+  --color-gold-400: #FBBF24;
+  --color-gold-500: #E8A317;
+  --color-gold-600: #C2820A;
+  --color-gold-700: #966508;
+
   /* ── Sand (Backgrounds & surfaces) ───────────────────────────────── */
   --color-sand-50:  #F8FAF7;
   --color-sand-100: #F0F4EF;
@@ -65,6 +75,15 @@
   --color-lake-600: var(--color-lake-600);
   --color-lake-700: var(--color-lake-700);
   --color-lake-900: var(--color-lake-900);
+
+  --color-gold-50:  var(--color-gold-50);
+  --color-gold-100: var(--color-gold-100);
+  --color-gold-200: var(--color-gold-200);
+  --color-gold-300: var(--color-gold-300);
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-600: var(--color-gold-600);
+  --color-gold-700: var(--color-gold-700);
 
   --color-sand-50:  var(--color-sand-50);
   --color-sand-100: var(--color-sand-100);

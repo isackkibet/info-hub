@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const hubs = [
   {
     name: "SIHU News Hub",
@@ -12,6 +14,10 @@ const hubs = [
       "Every report shows its status: pending, verified, or rejected",
     ],
     persona: "Built for field reporters and community validators",
+    ctaHref: "/sihu/submit",
+    ctaLabel: "Submit a report",
+    secondaryHref: "/sihu/my-reports",
+    secondaryLabel: "View reports",
   },
   {
     name: "CFA Conservation Hub",
@@ -26,15 +32,19 @@ const hubs = [
       "Every submission is checked, then verified by a real person",
     ],
     persona: "Built for CFA members, site managers, and verifiers",
+    ctaHref: "/cfa/dashboard",
+    ctaLabel: "Open CFA dashboard",
+    secondaryHref: "/dashboard",
+    secondaryLabel: "My account",
   },
 ];
 
 export function HubsSection() {
   return (
-    <section id="hubs" className="border-b border-slate-200 bg-slate-50">
+    <section id="hubs" className="border-b border-sand-200 bg-sand-50">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
         <div className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-wide text-forest-600">
+          <span className="text-xs font-semibold uppercase tracking-wide text-forest-700">
             Two hubs
           </span>
           <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
@@ -51,53 +61,90 @@ export function HubsSection() {
           {hubs.map((hub) => (
             <div
               key={hub.name}
-              className="flex flex-col rounded-2xl border border-slate-200 bg-white p-8"
+              className="flex flex-col overflow-hidden rounded-2xl border border-sand-200 bg-white"
             >
-              <div className="flex items-center justify-between">
-                <span
-                  className={
-                    hub.accent === "forest"
-                      ? "text-xs font-semibold uppercase tracking-wide text-forest-700"
-                      : "text-xs font-semibold uppercase tracking-wide text-lake-600"
-                  }
-                >
-                  {hub.tag}
-                </span>
-                <span
-                  className={
-                    hub.accent === "forest"
-                      ? "h-2 w-2 rounded-full bg-forest-500"
-                      : "h-2 w-2 rounded-full bg-lake-500"
-                  }
-                />
+              {/* Accent strip */}
+              <div
+                className={
+                  hub.accent === "forest"
+                    ? "h-1.5 w-full bg-forest-600"
+                    : "h-1.5 w-full bg-lake-600"
+                }
+              />
+
+              <div className="flex flex-1 flex-col p-8">
+                <div className="flex items-center justify-between">
+                  <span
+                    className={
+                      hub.accent === "forest"
+                        ? "text-xs font-semibold uppercase tracking-wide text-forest-700"
+                        : "text-xs font-semibold uppercase tracking-wide text-lake-700"
+                    }
+                  >
+                    {hub.tag}
+                  </span>
+                  <span
+                    className={
+                      hub.accent === "forest"
+                        ? "rounded-full border border-forest-200 bg-forest-50 px-2 py-0.5 text-xs font-medium text-forest-700"
+                        : "rounded-full border border-lake-200 bg-lake-50 px-2 py-0.5 text-xs font-medium text-lake-700"
+                    }
+                  >
+                    {hub.accent === "forest" ? "CFA" : "SIHU"}
+                  </span>
+                </div>
+
+                <h3 className="mt-3 text-2xl font-semibold text-ink-900">
+                  {hub.name}
+                </h3>
+
+                <p className="mt-4 text-sm leading-relaxed text-ink-700">
+                  {hub.description}
+                </p>
+
+                <ul className="mt-6 space-y-3 border-t border-sand-200 pt-6">
+                  {hub.points.map((point) => (
+                    <li key={point} className="flex gap-3 text-sm text-ink-700">
+                      <span
+                        className={
+                          hub.accent === "forest"
+                            ? "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-forest-600"
+                            : "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lake-600"
+                        }
+                      />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-6 text-xs font-medium text-ink-600">
+                  {hub.persona}
+                </p>
+
+                {/* CTAs */}
+                <div className="mt-6 flex gap-3">
+                  <Link
+                    href={hub.ctaHref}
+                    className={
+                      hub.accent === "forest"
+                        ? "rounded-md bg-forest-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-forest-800"
+                        : "rounded-md bg-lake-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-lake-700"
+                    }
+                  >
+                    {hub.ctaLabel}
+                  </Link>
+                  <Link
+                    href={hub.secondaryHref}
+                    className={
+                      hub.accent === "forest"
+                        ? "rounded-md border border-forest-200 px-4 py-2 text-sm font-medium text-forest-700 transition-colors hover:bg-forest-50"
+                        : "rounded-md border border-lake-200 px-4 py-2 text-sm font-medium text-lake-700 transition-colors hover:bg-lake-50"
+                    }
+                  >
+                    {hub.secondaryLabel}
+                  </Link>
+                </div>
               </div>
-
-              <h3 className="mt-3 text-2xl font-semibold text-ink-900">
-                {hub.name}
-              </h3>
-
-              <p className="mt-4 text-sm leading-relaxed text-ink-700">
-                {hub.description}
-              </p>
-
-              <ul className="mt-6 space-y-3 border-t border-slate-200 pt-6">
-                {hub.points.map((point) => (
-                  <li key={point} className="flex gap-3 text-sm text-ink-700">
-                    <span
-                      className={
-                        hub.accent === "forest"
-                          ? "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-forest-500"
-                          : "mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lake-500"
-                      }
-                    />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <p className="mt-6 text-xs font-medium text-ink-600">
-                {hub.persona}
-              </p>
             </div>
           ))}
         </div>

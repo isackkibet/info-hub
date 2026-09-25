@@ -28,14 +28,15 @@ export function ValidatorQueue() {
 
   return (
     <div>
+      {/* Filter toggle */}
       <div className="mb-6 flex items-center gap-2">
         <button
           type="button"
           onClick={() => setFilter("PENDING")}
           className={
             filter === "PENDING"
-              ? "rounded-md bg-forest-600 px-3 py-1.5 text-xs font-medium text-white"
-              : "rounded-md border border-slate-200 px-3 py-1.5 text-xs font-medium text-ink-700"
+              ? "rounded-md bg-lake-600 px-3 py-1.5 text-xs font-medium text-white"
+              : "rounded-md border border-sand-200 px-3 py-1.5 text-xs font-medium text-ink-700 hover:bg-sand-100"
           }
         >
           Pending only
@@ -45,8 +46,8 @@ export function ValidatorQueue() {
           onClick={() => setFilter("ALL")}
           className={
             filter === "ALL"
-              ? "rounded-md bg-forest-600 px-3 py-1.5 text-xs font-medium text-white"
-              : "rounded-md border border-slate-200 px-3 py-1.5 text-xs font-medium text-ink-700"
+              ? "rounded-md bg-lake-600 px-3 py-1.5 text-xs font-medium text-white"
+              : "rounded-md border border-sand-200 px-3 py-1.5 text-xs font-medium text-ink-700 hover:bg-sand-100"
           }
         >
           All reports
@@ -54,7 +55,7 @@ export function ValidatorQueue() {
       </div>
 
       {visible.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-slate-200 p-10 text-center text-sm text-ink-600">
+        <div className="rounded-2xl border border-dashed border-sand-200 p-10 text-center text-sm text-ink-600">
           No reports in this view.
         </div>
       )}
@@ -63,7 +64,7 @@ export function ValidatorQueue() {
         {visible.map((submission) => (
           <div
             key={submission.id}
-            className="rounded-2xl border border-slate-200 bg-white p-6"
+            className="rounded-2xl border border-sand-200 bg-white p-6"
           >
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
@@ -93,7 +94,7 @@ export function ValidatorQueue() {
               href={submission.publicMediaUrl}
               target="_blank"
               rel="noreferrer"
-              className="mt-4 inline-block break-all text-sm font-medium text-lake-600 hover:underline"
+              className="mt-4 inline-block break-all text-sm font-medium text-lake-600 hover:text-lake-700 hover:underline"
             >
               {submission.publicMediaUrl}
             </a>
@@ -105,7 +106,7 @@ export function ValidatorQueue() {
             )}
 
             {submission.status === "PENDING" && (
-              <div className="mt-4 border-t border-slate-200 pt-4">
+              <div className="mt-4 border-t border-sand-200 pt-4">
                 <label
                   htmlFor={`notes-${submission.id}`}
                   className="text-xs font-medium text-ink-700"
@@ -122,7 +123,7 @@ export function ValidatorQueue() {
                       [submission.id]: event.target.value,
                     }))
                   }
-                  className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+                  className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
                 />
                 <div className="mt-3 flex gap-3">
                   <button

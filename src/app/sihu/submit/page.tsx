@@ -5,7 +5,7 @@ export default function SihuSubmitPage() {
   return (
     <>
       <AppNav />
-      <main className="flex-1 bg-slate-50">
+      <main className="flex-1 bg-sand-50">
         <div className="mx-auto max-w-2xl px-6 py-16 lg:px-8">
           <span className="text-xs font-semibold uppercase tracking-wide text-lake-600">
             SIHU News Hub
@@ -14,8 +14,8 @@ export default function SihuSubmitPage() {
             Submit a field report
           </h1>
           <p className="mt-3 text-base leading-relaxed text-ink-700">
-            Post your photo or video publicly, then fill in this form.
-            No file uploads are required.
+            Post your photo or video publicly first, then fill in this form.
+            No file uploads required.
           </p>
 
           <div className="mt-10">

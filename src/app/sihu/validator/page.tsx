@@ -5,7 +5,7 @@ export default function ValidatorPage() {
   return (
     <>
       <AppNav />
-      <main className="flex-1 bg-slate-50">
+      <main className="flex-1 bg-sand-50">
         <div className="mx-auto max-w-3xl px-6 py-16 lg:px-8">
           <span className="text-xs font-semibold uppercase tracking-wide text-lake-600">
             SIHU News Hub
