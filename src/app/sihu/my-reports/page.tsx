@@ -1,5 +1,4 @@
 import { AppNav } from "@/components/app-nav";
-import { PreviewNotice } from "@/components/preview-notice";
 import { ReportsTable } from "./reports-table";
 
 export default function MyReportsPage() {
@@ -17,11 +16,6 @@ export default function MyReportsPage() {
           <p className="mt-3 text-base leading-relaxed text-ink-700">
             Every report submitted from this device, with its current status.
           </p>
-          <PreviewNotice>
-            Preview mode: this list is stored in this browser, not the
-            shared database, so it will not show reports submitted from
-            other devices.
-          </PreviewNotice>
 
           <div className="mt-10">
             <ReportsTable />

@@ -123,17 +123,25 @@ export function AppNav() {
               : "border-t border-forest-100 bg-forest-50 px-6 py-1.5 lg:px-8"
           }
         >
-          <span
-            className={
-              isSihu
-                ? "text-xs font-medium text-lake-700"
-                : "text-xs font-medium text-forest-700"
-            }
-          >
-            {isSihu
-              ? "SIHU: Sango Information Hub, Lake Victoria Basin"
-              : "CFA: Community Forest Association Conservation Hub"}
-          </span>
+          <div className="mx-auto flex max-w-7xl items-center justify-between">
+            <span
+              className={
+                isSihu
+                  ? "text-xs font-medium text-lake-700"
+                  : "text-xs font-medium text-forest-700"
+              }
+            >
+              {isSihu
+                ? "SIHU: Sango Information Hub, Lake Victoria Basin"
+                : "CFA: Community Forest Association Conservation Hub"}
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gold-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
+              {isSihu
+                ? "Preview: saved in this browser only"
+                : "Preview: sample data"}
+            </span>
+          </div>
         </div>
       )}
     </header>
