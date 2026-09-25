@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AppNav } from "@/components/app-nav";
 import {
   cfaPipeline,
@@ -5,6 +6,7 @@ import {
   cfaSpeciesSample,
   cfaTotals,
 } from "@/lib/cfa-mock";
+import { RecentActivity } from "./recent-activity";
 
 export default function CfaDashboardPage() {
   return (
@@ -12,19 +14,29 @@ export default function CfaDashboardPage() {
       <AppNav />
       <main className="flex-1 bg-sand-50">
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
-          <span className="text-xs font-semibold uppercase tracking-wide text-forest-700">
-            CFA Conservation Hub
-          </span>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink-900">
-            Kapsabet Forest Association
-          </h1>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-700">
-            Site management, species records, offline field submission, and
-            live verification will appear here as they go live.
-          </p>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-wide text-forest-700">
+                CFA Conservation Hub
+              </span>
+              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink-900">
+                Kapsabet Forest Association
+              </h1>
+              <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-700">
+                Site management, species records, offline field submission, and
+                live verification will appear here as they go live.
+              </p>
+            </div>
+            <Link
+              href="/cfa/submit"
+              className="shrink-0 rounded-md bg-forest-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-forest-700"
+            >
+              Record activity
+            </Link>
+          </div>
 
           {/* Stat strip */}
-          <div className="mt-10 grid grid-cols-2 divide-y divide-sand-200 overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-950/5 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 divide-y divide-sand-200 overflow-hidden rounded-2xl bg-white shadow-lg shadow-forest-950/5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:grid-cols-5">
             <Stat label="Active sites" value={cfaTotals.activeSites} />
             <Stat
               label="Trees recorded"
@@ -35,6 +47,10 @@ export default function CfaDashboardPage() {
               value={cfaTotals.surviving.toLocaleString()}
             />
             <Stat label="Species tracked" value={cfaTotals.speciesCount} />
+            <Stat
+              label="Survival rate"
+              value={`${cfaTotals.survivalRate}%`}
+            />
           </div>
 
           <div className="mt-12 grid gap-8 lg:grid-cols-[3fr_2fr]">
@@ -86,6 +102,9 @@ export default function CfaDashboardPage() {
             </div>
 
             <div className="space-y-8">
+              {/* Recent activity */}
+              <RecentActivity />
+
               {/* Verification pipeline */}
               <div className="rounded-2xl bg-white p-6 shadow-lg shadow-forest-950/5">
                 <h2 className="text-lg font-semibold text-ink-900">
