@@ -50,16 +50,20 @@ export function Hero() {
           </div>
 
           {/* Hub mini preview */}
-          <div className="mt-12 grid grid-cols-2 gap-4 border-t border-white/10 pt-8">
-            <div className="rounded-xl border border-lake-300/30 bg-lake-900/50 px-4 py-3 backdrop-blur-sm">
+          <div className="mt-12 grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
+            <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-lake-300">SIHU</p>
-              <p className="mt-1 text-sm font-medium text-white">Water &amp; Civic Reports</p>
-              <p className="mt-1 text-xs text-white/70">Lake Victoria Basin</p>
+              <p className="mt-1.5 text-lg font-semibold text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.4)]">
+                Water &amp; Civic Reports
+              </p>
+              <p className="mt-1 text-xs text-white/60">Lake Victoria Basin</p>
             </div>
-            <div className="rounded-xl border border-forest-300/30 bg-forest-900/50 px-4 py-3 backdrop-blur-sm">
+            <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-forest-300">CFA</p>
-              <p className="mt-1 text-sm font-medium text-white">Forest Conservation</p>
-              <p className="mt-1 text-xs text-white/70">Community Forest Associations</p>
+              <p className="mt-1.5 text-lg font-semibold text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.4)]">
+                Forest Conservation
+              </p>
+              <p className="mt-1 text-xs text-white/60">Community Forest Associations</p>
             </div>
           </div>
         </div>
