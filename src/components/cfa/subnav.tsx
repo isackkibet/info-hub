@@ -19,6 +19,7 @@ const groups: { label: string; items: { href: string; label: string }[] }[] = [
       { href: "/cfa/activities", label: "Activities" },
       { href: "/cfa/planting", label: "Planting" },
       { href: "/cfa/survival", label: "Survival" },
+      { href: "/cfa/updates", label: "Updates" },
     ],
   },
   {
