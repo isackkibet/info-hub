@@ -10,7 +10,7 @@ export default function CfaDashboardPage() {
   return (
     <>
       <AppNav />
-      <main className="flex-1 bg-sand-100/60">
+      <main className="flex-1 bg-slate-50">
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
           <span className="text-xs font-semibold uppercase tracking-wide text-forest-700">
             CFA Conservation Hub
@@ -19,10 +19,9 @@ export default function CfaDashboardPage() {
             Kapsabet Forest Association
           </h1>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-700">
-            Sample data illustrating the dashboard described in the build
-            specification. Site and species management, offline field
-            submission, and live verification will connect here once the
-            CFA vertical is built.
+            A preview with sample data. Site management, species records,
+            offline field submission, and live verification will appear
+            here as they go live.
           </p>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -47,7 +46,7 @@ export default function CfaDashboardPage() {
                 {cfaSites.map((site) => (
                   <div
                     key={site.name}
-                    className="rounded-2xl border border-forest-900/10 bg-white p-6"
+                    className="rounded-2xl border border-slate-200 bg-white p-6"
                   >
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <h3 className="text-base font-semibold text-ink-900">
@@ -57,7 +56,7 @@ export default function CfaDashboardPage() {
                         {site.areaHectares} ha
                       </span>
                     </div>
-                    <dl className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-900/10 pt-4">
+                    <dl className="mt-4 grid grid-cols-3 gap-4 border-t border-slate-200 pt-4">
                       <div>
                         <dt className="text-xs text-ink-600">Total trees</dt>
                         <dd className="mt-1 text-sm font-semibold text-ink-900">
@@ -83,7 +82,7 @@ export default function CfaDashboardPage() {
             </div>
 
             <div className="space-y-8">
-              <div className="rounded-2xl border border-forest-900/10 bg-white p-6">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6">
                 <h2 className="text-lg font-semibold text-ink-900">
                   Verification pipeline
                 </h2>
@@ -114,7 +113,7 @@ export default function CfaDashboardPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-forest-900/10 bg-white p-6">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6">
                 <h2 className="text-lg font-semibold text-ink-900">
                   Species registry sample
                 </h2>
@@ -132,7 +131,7 @@ export default function CfaDashboardPage() {
                           {species.purpose}
                         </p>
                       </div>
-                      <span className="rounded-full border border-forest-700/20 bg-forest-50 px-2 py-1 text-xs text-forest-700">
+                      <span className="rounded-full border border-forest-200 bg-forest-50 px-2 py-1 text-xs text-forest-700">
                         {species.classification}
                       </span>
                     </li>
@@ -149,7 +148,7 @@ export default function CfaDashboardPage() {
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-2xl border border-forest-900/10 bg-white p-6">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6">
       <p className="text-xs font-medium uppercase tracking-wide text-ink-600">
         {label}
       </p>

@@ -15,10 +15,10 @@ export function AppNav() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-forest-900/10 bg-sand-50/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-forest-700 text-sm font-semibold text-sand-50">
+          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-forest-600 text-sm font-semibold text-white">
             KN
           </span>
           <span className="flex flex-col leading-none">
@@ -38,7 +38,7 @@ export function AppNav() {
                 href={link.href}
                 className={
                   active
-                    ? "rounded-md bg-forest-700 px-3 py-2 text-sm font-medium text-sand-50"
+                    ? "rounded-md bg-forest-600 px-3 py-2 text-sm font-medium text-white"
                     : "rounded-md px-3 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-forest-50 hover:text-forest-700"
                 }
               >
@@ -50,7 +50,7 @@ export function AppNav() {
 
         <Link
           href="/"
-          className="rounded-md border border-ink-900/15 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-forest-700/40 hover:text-forest-700"
+          className="rounded-md border border-slate-200 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-forest-300 hover:text-forest-700"
         >
           Back to overview
         </Link>

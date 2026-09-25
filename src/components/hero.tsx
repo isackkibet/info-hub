@@ -2,15 +2,15 @@ const flowSteps = [
   { label: "Field submission", detail: "Reporters and CFA members capture data on the ground" },
   { label: "Clean and validate", detail: "Automated checks catch structural and logic errors" },
   { label: "Human verification", detail: "Validators and verifiers review evidence and confirm" },
-  { label: "Avalanche anchor", detail: "Verified records are batched and anchored on-chain" },
+  { label: "Secure proof", detail: "Verified records are sealed into one tamper-evident proof" },
 ];
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden border-b border-forest-900/10">
+    <section id="top" className="relative overflow-hidden border-b border-slate-200">
       <div className="mx-auto grid max-w-7xl gap-16 px-6 py-20 lg:grid-cols-2 lg:items-center lg:py-28 lg:px-8">
         <div>
-          <span className="inline-flex items-center rounded-full border border-forest-700/20 bg-forest-50 px-3 py-1 text-xs font-medium tracking-wide text-forest-700">
+          <span className="inline-flex items-center rounded-full border border-forest-200 bg-forest-50 px-3 py-1 text-xs font-medium tracking-wide text-forest-700">
             Unified Environmental Info Hub
           </span>
 
@@ -21,28 +21,26 @@ export function Hero() {
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-700">
             The SIHU News Hub and the CFA Conservation Hub turn scattered
             environmental and conservation information into structured,
-            attributable records. Every verified record from either hub
-            settles through the same Avalanche anchoring engine, so
-            proof-of-integrity runs through one auditable pipeline instead
-            of two.
+            trustworthy records, verified by real people and backed by
+            one shared proof layer.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href="/dashboard"
-              className="rounded-md bg-forest-700 px-6 py-3 text-sm font-semibold text-sand-50 transition-colors hover:bg-forest-800"
+              className="rounded-md bg-forest-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-forest-700"
             >
               Enter the Platform
             </a>
             <a
               href="#trust-layer"
-              className="rounded-md border border-ink-900/15 px-6 py-3 text-sm font-semibold text-ink-800 transition-colors hover:border-forest-700/40 hover:text-forest-700"
+              className="rounded-md border border-slate-200 px-6 py-3 text-sm font-semibold text-ink-800 transition-colors hover:border-forest-300 hover:text-forest-700"
             >
-              How anchoring works
+              How it works
             </a>
           </div>
 
-          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-forest-900/10 pt-8">
+          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-slate-200 pt-8">
             <div>
               <dt className="text-xs font-medium uppercase tracking-wide text-ink-600">
                 Hubs
@@ -65,7 +63,7 @@ export function Hero() {
         </div>
 
         <div className="relative">
-          <div className="rounded-2xl border border-forest-900/10 bg-white p-8 shadow-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
             <p className="text-xs font-medium uppercase tracking-wide text-ink-600">
               Record lifecycle
             </p>
@@ -73,11 +71,11 @@ export function Hero() {
               {flowSteps.map((step, index) => (
                 <li key={step.label} className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest-700 text-xs font-semibold text-sand-50">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-forest-600 text-xs font-semibold text-white">
                       {index + 1}
                     </span>
                     {index < flowSteps.length - 1 && (
-                      <span className="mt-1 h-full w-px flex-1 bg-forest-900/15" />
+                      <span className="mt-1 h-full w-px flex-1 bg-slate-200" />
                     )}
                   </div>
                   <div className="pb-2">

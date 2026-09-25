@@ -1,37 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fbfaf7;
-  --foreground: #12181a;
+  --background: #ffffff;
+  --foreground: #0f172a;
 
-  --color-forest-50: #eef6f0;
-  --color-forest-100: #d7ebdc;
-  --color-forest-200: #aed6b8;
-  --color-forest-300: #7fbd90;
-  --color-forest-400: #4c9d67;
-  --color-forest-500: #2e7f4d;
-  --color-forest-600: #22683f;
-  --color-forest-700: #1c5234;
-  --color-forest-800: #163f28;
-  --color-forest-900: #102e1e;
-  --color-forest-950: #0a1d13;
+  --color-forest-50: #ecfdf5;
+  --color-forest-100: #d1fae5;
+  --color-forest-200: #a7f3d0;
+  --color-forest-300: #6ee7b7;
+  --color-forest-400: #34d399;
+  --color-forest-500: #10b981;
+  --color-forest-600: #059669;
+  --color-forest-700: #047857;
+  --color-forest-800: #065f46;
+  --color-forest-900: #064e3b;
+  --color-forest-950: #022c22;
 
-  --color-lake-50: #eaf3fa;
-  --color-lake-100: #cfe3f1;
-  --color-lake-300: #7fb0d6;
-  --color-lake-500: #2c6f9e;
-  --color-lake-600: #235a80;
-  --color-lake-700: #1c4863;
-  --color-lake-900: #112c3d;
+  --color-lake-50: #eff6ff;
+  --color-lake-100: #dbeafe;
+  --color-lake-300: #93c5fd;
+  --color-lake-500: #3b82f6;
+  --color-lake-600: #2563eb;
+  --color-lake-700: #1d4ed8;
+  --color-lake-900: #1e3a8a;
 
-  --color-sand-50: #fbfaf7;
-  --color-sand-100: #f3f0e8;
-  --color-sand-200: #e6e1d3;
+  --color-sand-50: #ffffff;
+  --color-sand-100: #f8fafc;
+  --color-sand-200: #e2e8f0;
 
-  --color-ink-600: #4b5560;
-  --color-ink-700: #333c44;
-  --color-ink-800: #232a30;
-  --color-ink-900: #12181a;
+  --color-ink-600: #64748b;
+  --color-ink-700: #475569;
+  --color-ink-800: #334155;
+  --color-ink-900: #0f172a;
 }
 
 @theme inline {

@@ -34,8 +34,8 @@ export function ValidatorQueue() {
           onClick={() => setFilter("PENDING")}
           className={
             filter === "PENDING"
-              ? "rounded-md bg-forest-700 px-3 py-1.5 text-xs font-medium text-sand-50"
-              : "rounded-md border border-ink-900/15 px-3 py-1.5 text-xs font-medium text-ink-700"
+              ? "rounded-md bg-forest-600 px-3 py-1.5 text-xs font-medium text-white"
+              : "rounded-md border border-slate-200 px-3 py-1.5 text-xs font-medium text-ink-700"
           }
         >
           Pending only
@@ -45,8 +45,8 @@ export function ValidatorQueue() {
           onClick={() => setFilter("ALL")}
           className={
             filter === "ALL"
-              ? "rounded-md bg-forest-700 px-3 py-1.5 text-xs font-medium text-sand-50"
-              : "rounded-md border border-ink-900/15 px-3 py-1.5 text-xs font-medium text-ink-700"
+              ? "rounded-md bg-forest-600 px-3 py-1.5 text-xs font-medium text-white"
+              : "rounded-md border border-slate-200 px-3 py-1.5 text-xs font-medium text-ink-700"
           }
         >
           All reports
@@ -54,7 +54,7 @@ export function ValidatorQueue() {
       </div>
 
       {visible.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-ink-900/15 p-10 text-center text-sm text-ink-600">
+        <div className="rounded-2xl border border-dashed border-slate-200 p-10 text-center text-sm text-ink-600">
           No reports in this view.
         </div>
       )}
@@ -63,7 +63,7 @@ export function ValidatorQueue() {
         {visible.map((submission) => (
           <div
             key={submission.id}
-            className="rounded-2xl border border-forest-900/10 bg-white p-6"
+            className="rounded-2xl border border-slate-200 bg-white p-6"
           >
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
@@ -105,7 +105,7 @@ export function ValidatorQueue() {
             )}
 
             {submission.status === "PENDING" && (
-              <div className="mt-4 border-t border-forest-900/10 pt-4">
+              <div className="mt-4 border-t border-slate-200 pt-4">
                 <label
                   htmlFor={`notes-${submission.id}`}
                   className="text-xs font-medium text-ink-700"
@@ -122,13 +122,13 @@ export function ValidatorQueue() {
                       [submission.id]: event.target.value,
                     }))
                   }
-                  className="mt-2 w-full rounded-md border border-ink-900/15 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+                  className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
                 />
                 <div className="mt-3 flex gap-3">
                   <button
                     type="button"
                     onClick={() => handleDecision(submission.id, "VERIFIED")}
-                    className="rounded-md bg-forest-700 px-4 py-2 text-sm font-medium text-sand-50 transition-colors hover:bg-forest-800"
+                    className="rounded-md bg-forest-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-forest-700"
                   >
                     Approve
                   </button>

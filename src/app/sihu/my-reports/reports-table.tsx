@@ -8,13 +8,13 @@ export function ReportsTable() {
 
   if (submissions.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-ink-900/15 p-10 text-center">
+      <div className="rounded-2xl border border-dashed border-slate-200 p-10 text-center">
         <p className="text-sm text-ink-600">
           No reports submitted yet.
         </p>
         <Link
           href="/sihu/submit"
-          className="mt-4 inline-block rounded-md bg-forest-700 px-4 py-2 text-sm font-medium text-sand-50 transition-colors hover:bg-forest-800"
+          className="mt-4 inline-block rounded-md bg-forest-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-forest-700"
         >
           Submit your first report
         </Link>
@@ -23,9 +23,9 @@ export function ReportsTable() {
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
+    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
       <table className="w-full text-left text-sm">
-        <thead className="border-b border-forest-900/10 bg-sand-100/60 text-xs uppercase tracking-wide text-ink-600">
+        <thead className="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-ink-600">
           <tr>
             <th className="px-4 py-3 font-medium">ID</th>
             <th className="px-4 py-3 font-medium">Title</th>

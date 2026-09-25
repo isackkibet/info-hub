@@ -3,7 +3,6 @@ import { Hero } from "@/components/hero";
 import { HubsSection } from "@/components/hubs-section";
 import { TrustLayer } from "@/components/trust-layer";
 import { Principles } from "@/components/principles";
-import { BuildPlan } from "@/components/build-plan";
 import { SiteFooter } from "@/components/site-footer";
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
         <HubsSection />
         <TrustLayer />
         <Principles />
-        <BuildPlan />
       </main>
       <SiteFooter />
     </>

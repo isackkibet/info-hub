@@ -43,7 +43,7 @@ export default function DashboardPage() {
             {hubs.map((hub) => (
               <div
                 key={hub.name}
-                className="flex flex-col rounded-2xl border border-forest-900/10 bg-white p-6"
+                className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6"
               >
                 <h2 className="text-lg font-semibold text-ink-900">
                   {hub.name}
@@ -58,8 +58,8 @@ export default function DashboardPage() {
                       href={action.href}
                       className={
                         index === 0
-                          ? "rounded-md bg-forest-700 px-4 py-2 text-center text-sm font-medium text-sand-50 transition-colors hover:bg-forest-800"
-                          : "rounded-md border border-ink-900/15 px-4 py-2 text-center text-sm font-medium text-ink-700 transition-colors hover:border-forest-700/40 hover:text-forest-700"
+                          ? "rounded-md bg-forest-600 px-4 py-2 text-center text-sm font-medium text-white transition-colors hover:bg-forest-700"
+                          : "rounded-md border border-slate-200 px-4 py-2 text-center text-sm font-medium text-ink-700 transition-colors hover:border-forest-300 hover:text-forest-700"
                       }
                     >
                       {action.label}

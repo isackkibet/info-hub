@@ -44,8 +44,8 @@ export function SubmitForm() {
 
   if (trackingId) {
     return (
-      <div className="rounded-2xl border border-forest-900/10 bg-white p-8">
-        <span className="inline-flex items-center rounded-full border border-forest-700/20 bg-forest-50 px-3 py-1 text-xs font-medium text-forest-700">
+      <div className="rounded-2xl border border-slate-200 bg-white p-8">
+        <span className="inline-flex items-center rounded-full border border-forest-200 bg-forest-50 px-3 py-1 text-xs font-medium text-forest-700">
           Submitted
         </span>
         <h2 className="mt-4 text-xl font-semibold text-ink-900">
@@ -62,13 +62,13 @@ export function SubmitForm() {
           <button
             type="button"
             onClick={() => setTrackingId(null)}
-            className="rounded-md bg-forest-700 px-4 py-2 text-sm font-medium text-sand-50 transition-colors hover:bg-forest-800"
+            className="rounded-md bg-forest-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-forest-700"
           >
             Submit another report
           </button>
           <Link
             href="/sihu/my-reports"
-            className="rounded-md border border-ink-900/15 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-forest-700/40 hover:text-forest-700"
+            className="rounded-md border border-slate-200 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-forest-300 hover:text-forest-700"
           >
             View my reports
           </Link>
@@ -80,7 +80,7 @@ export function SubmitForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 rounded-2xl border border-forest-900/10 bg-white p-8"
+      className="space-y-6 rounded-2xl border border-slate-200 bg-white p-8"
       noValidate
     >
       <div>
@@ -91,7 +91,7 @@ export function SubmitForm() {
           id="reporterName"
           type="text"
           {...register("reporterName")}
-          className="mt-2 w-full rounded-md border border-ink-900/15 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+          className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
           placeholder="e.g. Otieno"
         />
         {errors.reporterName && (
@@ -109,7 +109,7 @@ export function SubmitForm() {
           id="title"
           type="text"
           {...register("title")}
-          className="mt-2 w-full rounded-md border border-ink-900/15 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+          className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
           placeholder="e.g. Water hyacinth spreading near Dunga Beach"
         />
         {errors.title && (
@@ -125,7 +125,7 @@ export function SubmitForm() {
           <select
             id="category"
             {...register("category")}
-            className="mt-2 w-full rounded-md border border-ink-900/15 bg-white px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+            className="mt-2 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
           >
             {CATEGORY_OPTIONS.map(([value, label]) => (
               <option key={value} value={value}>
@@ -143,7 +143,7 @@ export function SubmitForm() {
             id="topic"
             type="text"
             {...register("topic")}
-            className="mt-2 w-full rounded-md border border-ink-900/15 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+            className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
             placeholder="e.g. species or subject name"
           />
         </div>
@@ -159,7 +159,7 @@ export function SubmitForm() {
             type="number"
             min={1}
             {...register("quantity")}
-            className="mt-2 w-full rounded-md border border-ink-900/15 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+            className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
           />
           {errors.quantity && (
             <p className="mt-1 text-xs text-red-600">
@@ -176,7 +176,7 @@ export function SubmitForm() {
             id="latitude"
             type="text"
             {...register("latitude")}
-            className="mt-2 w-full rounded-md border border-ink-900/15 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+            className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
             placeholder="-0.1022"
           />
         </div>
@@ -189,7 +189,7 @@ export function SubmitForm() {
             id="longitude"
             type="text"
             {...register("longitude")}
-            className="mt-2 w-full rounded-md border border-ink-900/15 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+            className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
             placeholder="34.7617"
           />
         </div>
@@ -203,7 +203,7 @@ export function SubmitForm() {
           id="locationName"
           type="text"
           {...register("locationName")}
-          className="mt-2 w-full rounded-md border border-ink-900/15 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+          className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
           placeholder="e.g. Dunga Beach, Kisumu"
         />
         {errors.locationName && (
@@ -221,7 +221,7 @@ export function SubmitForm() {
           id="publicMediaUrl"
           type="text"
           {...register("publicMediaUrl")}
-          className="mt-2 w-full rounded-md border border-ink-900/15 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
+          className="mt-2 w-full rounded-md border border-slate-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-forest-600 focus:ring-1 focus:ring-forest-600"
           placeholder="https://instagram.com/p/..."
         />
         <p className="mt-1 text-xs text-ink-600">
@@ -238,7 +238,7 @@ export function SubmitForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-md bg-forest-700 px-4 py-3 text-sm font-semibold text-sand-50 transition-colors hover:bg-forest-800 disabled:opacity-60"
+        className="w-full rounded-md bg-forest-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-forest-700 disabled:opacity-60"
       >
         Submit report
       </button>

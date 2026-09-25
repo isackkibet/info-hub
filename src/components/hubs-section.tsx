@@ -4,12 +4,12 @@ const hubs = [
     tag: "Sango Information Hub",
     accent: "lake" as const,
     description:
-      "A lean civic media desk for environmental and human-rights reporting across the Lake Victoria Basin. Optimized for speed and zero cost: no file uploads, no cloud storage, no crypto friction.",
+      "A fast, simple way to report environmental and human-rights news across the Lake Victoria Basin. No file uploads, no extra apps, no cost to the reporter.",
     points: [
       "Water hyacinth tracking, pollution alerts, and blue-economy news",
-      "Field reporters submit a title, category, location, and a public media link",
-      "Community validators review and approve or reject with a reason",
-      "Status moves from Pending to Verified or Rejected, then Batched",
+      "Reporters submit a title, category, location, and a public media link",
+      "Community validators review each report and approve or reject it",
+      "Every report shows its status: pending, verified, or rejected",
     ],
     persona: "Built for field reporters and community validators",
   },
@@ -18,12 +18,12 @@ const hubs = [
     tag: "Community Forest Association System",
     accent: "forest" as const,
     description:
-      "The full-depth forest conservation system for Community Forest Associations and Kenya Forest Service partners: nurseries, species inventory, and a structured verification network.",
+      "A complete conservation record-keeping system for Community Forest Associations: nurseries, tree species, and a structured verification process.",
     points: [
-      "Multi-site tree nurseries and time-aware planting and mortality logs",
-      "Species registry with indigenous and exotic classification",
-      "Offline-tolerant mobile field submission with evidence uploads",
-      "Verification pipeline: Raw, Clean, Verified, then Anchored",
+      "Tracks multiple sites, nurseries, and planting activity over time",
+      "A species registry with indigenous and exotic classification",
+      "Works offline in the field and syncs when connection returns",
+      "Every submission is checked, then verified by a real person",
     ],
     persona: "Built for CFA members, site managers, and verifiers",
   },
@@ -31,21 +31,19 @@ const hubs = [
 
 export function HubsSection() {
   return (
-    <section id="hubs" className="border-b border-forest-900/10 bg-sand-100/60">
+    <section id="hubs" className="border-b border-slate-200 bg-slate-50">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
         <div className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-wide text-forest-700">
+          <span className="text-xs font-semibold uppercase tracking-wide text-forest-600">
             Two hubs
           </span>
           <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
-            Purpose-built for two different jobs
+            Built for two different jobs
           </h2>
           <p className="mt-4 text-base leading-relaxed text-ink-700">
-            SIHU data is a claim, a piece of evidence, and a verdict. CFA
-            data carries real structure: nursery stock, survival rates, and
-            site boundaries that conservation finance needs to query
-            directly. Keeping them as two hubs avoids overengineering SIHU
-            and avoids flattening away CFA&apos;s inventory logic.
+            News reporting and forest conservation need different tools.
+            SIHU keeps reporting quick and simple. CFA carries the deeper
+            record-keeping that conservation work actually needs.
           </p>
         </div>
 
@@ -53,7 +51,7 @@ export function HubsSection() {
           {hubs.map((hub) => (
             <div
               key={hub.name}
-              className="flex flex-col rounded-2xl border border-forest-900/10 bg-white p-8"
+              className="flex flex-col rounded-2xl border border-slate-200 bg-white p-8"
             >
               <div className="flex items-center justify-between">
                 <span
@@ -82,7 +80,7 @@ export function HubsSection() {
                 {hub.description}
               </p>
 
-              <ul className="mt-6 space-y-3 border-t border-forest-900/10 pt-6">
+              <ul className="mt-6 space-y-3 border-t border-slate-200 pt-6">
                 {hub.points.map((point) => (
                   <li key={point} className="flex gap-3 text-sm text-ink-700">
                     <span
