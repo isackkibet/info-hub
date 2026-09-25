@@ -104,13 +104,6 @@ export default async function LoginPage({
             </Link>
           </p>
 
-          {/* Demo hint */}
-          <p className="mt-4 rounded-lg bg-sand-100 px-3 py-2 text-center text-xs text-ink-600">
-            Demo:{" "}
-            <span className="font-mono font-medium text-ink-800">demo@kainuvari.test</span>
-            {" / "}
-            <span className="font-mono font-medium text-ink-800">password123</span>
-          </p>
         </div>
       </div>
     </main>
