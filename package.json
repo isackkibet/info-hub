@@ -7,6 +7,7 @@
     "build": "next build",
     "vercel-build": "prisma generate && DATABASE_URL=\"${DATABASE_URL_UNPOOLED:-$DATABASE_URL}\" prisma migrate deploy && next build",
     "start": "next start",
+    "test": "node --import tsx --test \"src/**/__tests__/*.test.ts\"",
     "lint": "eslint",
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev",

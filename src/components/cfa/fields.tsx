@@ -13,7 +13,7 @@ export function Field({
   children,
   className = "",
 }: {
-  label: string;
+  label?: string;
   htmlFor?: string;
   error?: string;
   hint?: string;
@@ -22,10 +22,12 @@ export function Field({
 }) {
   return (
     <div className={className}>
-      <label htmlFor={htmlFor} className="text-sm font-medium text-ink-800">
-        {label}
-      </label>
-      <div className="mt-2">{children}</div>
+      {label && (
+        <label htmlFor={htmlFor} className="text-sm font-medium text-ink-800">
+          {label}
+        </label>
+      )}
+      <div className={label ? "mt-2" : undefined}>{children}</div>
       {hint && !error && <p className="mt-1 text-xs text-ink-600">{hint}</p>}
       {error && (
         <p role="alert" className="mt-1 text-xs text-red-600">

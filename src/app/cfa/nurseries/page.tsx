@@ -19,7 +19,6 @@ import { useAccess } from "@/lib/cfa/permissions";
 import { addNursery, setNurseryStatus } from "@/lib/cfa/actions";
 import {
   aggregateStock,
-  inventorySummary,
   speciesName,
   survivalStats,
 } from "@/lib/cfa/inventory";
@@ -101,7 +100,31 @@ function NurseryCard({
   const stock = aggregateStock(state).filter(
     (row) => row.nurseryId === nursery.id,
   );
-  const summary = inventorySummary({ ...state, nurseries: [nursery] });
+  const movements = stock.reduce(
+    (acc, row) => ({
+      propagated: acc.propagated + row.movements.propagation,
+      planted: acc.planted + row.movements.planting,
+      sold: acc.sold + row.movements.sale,
+      donated: acc.donated + row.movements.donation,
+      transferred: acc.transferred + row.movements.transferOut,
+      mortality: acc.mortality + row.movements.mortality,
+    }),
+    {
+      propagated: 0,
+      planted: 0,
+      sold: 0,
+      donated: 0,
+      transferred: 0,
+      mortality: 0,
+    },
+  );
+  const currentStock = stock.reduce((sum, row) => sum + row.quantity, 0);
+  const survival = survivalStats({
+    ...state,
+    plantingEvents: state.plantingEvents.filter(
+      (event) => event.nurseryId === nursery.id,
+    ),
+  });
   const beds = state.seedbeds.filter((bed) => bed.nurseryId === nursery.id);
   const pending = state.activities.filter(
     (activity) => activity.nurseryId === nursery.id && activity.status === "SUBMITTED",
@@ -117,22 +140,19 @@ function NurseryCard({
       action={<NurseryBadge status={nursery.status} />}
     >
       <dl className="mt-4 grid grid-cols-2 gap-4 border-t border-sand-200 pt-4 sm:grid-cols-4">
-        <Metric label="Current stock" value={summary.currentStock.toLocaleString()} />
-        <Metric label="Species" value={summary.speciesCount} />
+        <Metric label="Current stock" value={currentStock.toLocaleString()} />
+        <Metric label="Species" value={stock.length} />
         <Metric
           label="Active beds"
           value={beds.filter((bed) => bed.status === "ACTIVE").length}
         />
-        <Metric
-          label="Survival"
-          value={`${survivalStats(state).latestRate}%`}
-        />
-        <Metric label="Propagated" value={summary.propagated.toLocaleString()} />
-        <Metric label="Planted" value={summary.planted.toLocaleString()} />
-        <Metric label="Sold" value={summary.sold.toLocaleString()} />
-        <Metric label="Donated" value={summary.donated.toLocaleString()} />
-        <Metric label="Transferred" value={summary.transferred.toLocaleString()} />
-        <Metric label="Mortality" value={summary.mortality.toLocaleString()} />
+        <Metric label="Survival" value={`${survival.latestRate}%`} />
+        <Metric label="Propagated" value={movements.propagated.toLocaleString()} />
+        <Metric label="Planted" value={movements.planted.toLocaleString()} />
+        <Metric label="Sold" value={movements.sold.toLocaleString()} />
+        <Metric label="Donated" value={movements.donated.toLocaleString()} />
+        <Metric label="Transferred" value={movements.transferred.toLocaleString()} />
+        <Metric label="Mortality" value={movements.mortality.toLocaleString()} />
         <Metric label="Pending" value={pending} />
         <Metric label="Needs correction" value={corrections} />
       </dl>

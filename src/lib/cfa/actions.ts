@@ -41,13 +41,13 @@ function today() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function hash(value: string) {
+function contentFingerprint(value: string) {
   let acc = 2166136261;
   for (let i = 0; i < value.length; i += 1) {
     acc ^= value.charCodeAt(i);
     acc = Math.imul(acc, 16777619);
   }
-  return `sha256:${(acc >>> 0).toString(16).padStart(8, "0")}`;
+  return `fp:${(acc >>> 0).toString(16).padStart(8, "0")}`;
 }
 
 export function setRole(role: CfaRole) {
@@ -351,6 +351,20 @@ export function addActivity(
   input: ActivityInput,
   actor: string,
 ): ActionResult {
+  const stockType = STOCK_EFFECT_TYPES[input.activityType];
+  const direction = stockType ? directionFor(stockType) : undefined;
+
+  if (!input.asDraft && stockType && input.speciesId && direction) {
+    const check = validatePosting(getCfaState(), {
+      transactionType: stockType,
+      nurseryId: input.nurseryId,
+      speciesId: input.speciesId,
+      quantity: input.quantity,
+      direction,
+    });
+    if (!check.ok) return check;
+  }
+
   const id = nextId("ACT");
   const now = nowIso();
   const activity: Activity = {
@@ -384,20 +398,7 @@ export function addActivity(
   }));
 
   if (input.asDraft) return { ok: true, id };
-
-  const stockType = STOCK_EFFECT_TYPES[input.activityType];
-  if (!stockType || !input.speciesId) return { ok: true, id };
-
-  const direction = directionFor(stockType);
-  const validation = validatePosting(getCfaState(), {
-      transactionType: stockType,
-      nurseryId: input.nurseryId,
-      speciesId: input.speciesId,
-      quantity: input.quantity,
-      direction,
-    },
-  );
-  if (!validation.ok) return { ok: true, id };
+  if (!stockType || !input.speciesId || !direction) return { ok: true, id };
 
   const txnResult = postTransaction(
     {
@@ -416,7 +417,8 @@ export function addActivity(
     actor,
   );
 
-  return { ok: true, id: txnResult.id ?? id };
+  if (!txnResult.ok) return txnResult;
+  return { ok: true, id };
 }
 
 export function updateActivity(
@@ -515,7 +517,9 @@ export function addEvidence(
     fileName: input.fileName,
     fileType: input.fileType,
     reference: input.reference,
-    contentHash: hash(`${input.reference}:${input.fileName}:${input.captureDate}`),
+    contentHash: contentFingerprint(
+      `${input.reference}:${input.fileName}:${input.captureDate}`,
+    ),
     uploadedBy: input.uploadedBy,
     captureDate: input.captureDate,
     visibility: input.visibility,
@@ -720,6 +724,15 @@ export function addSale(input: Omit<Sale, "id" | "createdAt">, actor: string): A
   if (!input.buyerName.trim()) {
     return { ok: false, error: "A sale needs buyer information." };
   }
+  const check = validatePosting(getCfaState(), {
+    transactionType: "SALE",
+    nurseryId: input.nurseryId,
+    speciesId: input.speciesId,
+    quantity: input.quantity,
+    direction: "OUT",
+  });
+  if (!check.ok) return check;
+
   const id = nextId("SALE");
   const sale: Sale = { ...input, id, createdAt: nowIso() };
 
@@ -791,6 +804,15 @@ export function addDonation(
   if (!input.recipientName.trim()) {
     return { ok: false, error: "A donation needs a named recipient." };
   }
+  const check = validatePosting(getCfaState(), {
+    transactionType: "DONATION",
+    nurseryId: input.nurseryId,
+    speciesId: input.speciesId,
+    quantity: input.quantity,
+    direction: "OUT",
+  });
+  if (!check.ok) return check;
+
   const id = nextId("DON");
   const donation: Donation = { ...input, id, createdAt: nowIso() };
 
@@ -853,6 +875,21 @@ export function addTransfer(input: Omit<Transfer, "id" | "createdAt">): ActionRe
       error: "A transfer must identify a destination bed, project, or another nursery.",
     };
   }
+  if (input.sourceNurseryId === input.destinationNurseryId && input.sourceSeedbedId && input.sourceSeedbedId === input.destinationSeedbedId) {
+    return {
+      ok: false,
+      error: "The source and destination bed are the same.",
+    };
+  }
+  const check = validatePosting(getCfaState(), {
+    transactionType: "TRANSFER_OUT",
+    nurseryId: input.sourceNurseryId,
+    speciesId: input.speciesId,
+    quantity: input.quantity,
+    direction: "OUT",
+  });
+  if (!check.ok) return check;
+
   const id = nextId("TRF");
   const transfer: Transfer = { ...input, id, createdAt: nowIso() };
 
@@ -913,6 +950,15 @@ export function addPlantingEvent(
   input: Omit<PlantingEvent, "id" | "createdAt" | "status">,
   actor: string,
 ): ActionResult {
+  const check = validatePosting(getCfaState(), {
+    transactionType: "PLANTING",
+    nurseryId: input.nurseryId,
+    speciesId: input.speciesId,
+    quantity: input.quantityPlanted,
+    direction: "OUT",
+  });
+  if (!check.ok) return check;
+
   const id = nextId("PLT");
   const event: PlantingEvent = {
     ...input,

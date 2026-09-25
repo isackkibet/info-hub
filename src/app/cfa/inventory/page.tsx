@@ -196,7 +196,14 @@ export default function InventoryPage() {
     {
       header: "Nursery",
       hideOnMobile: true,
-      render: (txn) => nurseryName(state, txn.nurseryId),
+      render: (txn) => (
+        <div>
+          <span>{nurseryName(state, txn.nurseryId)}</span>
+          <p className="text-xs text-ink-600">
+            {seedbedName(state, txn.seedbedId)}
+          </p>
+        </div>
+      ),
     },
     { header: "Species", render: (txn) => speciesName(state, txn.speciesId) },
     {

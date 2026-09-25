@@ -45,7 +45,7 @@ export function AccessSwitcher() {
 export function RecordActivityLink() {
   return (
     <Link
-      href="/cfa/activities?new=1"
+      href="/cfa/activities"
       className="shrink-0 rounded-md bg-forest-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-forest-700"
     >
       + Record Activity
