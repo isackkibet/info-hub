@@ -10,16 +10,32 @@ export type SihuCategory =
 
 export type SihuStatus = "PENDING" | "VERIFIED" | "REJECTED" | "BATCHED";
 
+export type SihuContentType = "ARTICLE" | "PICTURE" | "VIDEO" | "PODCAST";
+
+export const CONTENT_TYPE_LABELS: Record<SihuContentType, string> = {
+  ARTICLE: "Article",
+  PICTURE: "Picture",
+  VIDEO: "Video",
+  PODCAST: "Podcast",
+};
+
+export const CONTENT_TYPE_OPTIONS = Object.entries(CONTENT_TYPE_LABELS) as [
+  SihuContentType,
+  string,
+][];
+
 export interface SihuSubmission {
   id: string;
   title: string;
   category: SihuCategory;
+  contentType: SihuContentType;
   topic?: string;
   quantity: number;
   locationName: string;
   latitude?: number;
   longitude?: number;
-  publicMediaUrl: string;
+  publicMediaUrl?: string;
+  body?: string;
   reporterName: string;
   status: SihuStatus;
   reviewNotes?: string;
@@ -53,6 +69,7 @@ function seedSubmissions(): SihuSubmission[] {
       id: "SIHU-1001",
       title: "Water hyacinth spreading near Dunga Beach",
       category: "WATER_HYACINTH_TRACKING",
+      contentType: "PICTURE",
       topic: "Water hyacinth",
       quantity: 1,
       locationName: "Dunga Beach, Kisumu",
@@ -67,6 +84,7 @@ function seedSubmissions(): SihuSubmission[] {
       id: "SIHU-1002",
       title: "Community lake cleanup collects fifty bags of waste",
       category: "LAKE_CLEANUP",
+      contentType: "VIDEO",
       quantity: 50,
       locationName: "Homa Bay Pier",
       publicMediaUrl: "https://x.com/example/status/2",
@@ -79,12 +97,13 @@ function seedSubmissions(): SihuSubmission[] {
       id: "SIHU-1003",
       title: "Suspected effluent discharge near tannery",
       category: "POLLUTION_ALERT",
+      contentType: "ARTICLE",
       quantity: 1,
       locationName: "Kisumu Industrial Area",
-      publicMediaUrl: "https://instagram.com/p/example3",
+      body: "Residents near the industrial area have reported an unusual smell and discoloured water over the past week. A follow-up visit is needed to confirm the source before this can be verified.",
       reporterName: "Wanjiru",
       status: "REJECTED",
-      reviewNotes: "Location in the media link does not match the report.",
+      reviewNotes: "Location in the write-up does not match the report.",
       createdAt: new Date(now - 1000 * 60 * 60 * 50).toISOString(),
     },
   ];

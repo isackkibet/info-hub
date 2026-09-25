@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import {
   CATEGORY_LABELS,
   CATEGORY_OPTIONS,
+  CONTENT_TYPE_LABELS,
   statusStyles,
   updateSubmissionStatus,
   useSihuSubmissions,
@@ -134,6 +135,7 @@ export function ValidatorQueue() {
                   {submission.title}
                 </h3>
                 <p className="mt-1 text-xs text-ink-600">
+                  {CONTENT_TYPE_LABELS[submission.contentType]} ·{" "}
                   {CATEGORY_LABELS[submission.category]} in{" "}
                   {submission.locationName}, reported by{" "}
                   {submission.reporterName}
@@ -153,14 +155,22 @@ export function ValidatorQueue() {
               </span>
             </div>
 
-            <a
-              href={submission.publicMediaUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-4 inline-block break-all text-sm font-medium text-lake-600 hover:text-lake-700 hover:underline"
-            >
-              {submission.publicMediaUrl}
-            </a>
+            {submission.publicMediaUrl && (
+              <a
+                href={submission.publicMediaUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-block break-all text-sm font-medium text-lake-600 hover:text-lake-700 hover:underline"
+              >
+                {submission.publicMediaUrl}
+              </a>
+            )}
+
+            {submission.body && (
+              <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-ink-700">
+                {submission.body}
+              </p>
+            )}
 
             {submission.reviewNotes && (
               <p className="mt-3 rounded-md bg-sand-100 px-3 py-2 text-xs text-ink-700">

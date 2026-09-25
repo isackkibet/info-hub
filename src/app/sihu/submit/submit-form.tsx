@@ -8,7 +8,7 @@ import {
   sihuSubmissionSchema,
   type SihuSubmissionInput,
 } from "@/lib/sihu-schema";
-import { addSubmission, CATEGORY_OPTIONS } from "@/lib/sihu";
+import { addSubmission, CATEGORY_OPTIONS, CONTENT_TYPE_OPTIONS } from "@/lib/sihu";
 
 export function SubmitForm() {
   const [trackingId, setTrackingId] = useState<string | null>(null);
@@ -17,29 +17,36 @@ export function SubmitForm() {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<SihuSubmissionInput>({
     resolver: zodResolver(sihuSubmissionSchema),
     defaultValues: {
       quantity: "1",
       category: "WATER_HYACINTH_TRACKING",
+      contentType: "PICTURE",
     },
   });
+
+  const contentType = watch("contentType");
+  const isArticle = contentType === "ARTICLE";
 
   function onSubmit(data: SihuSubmissionInput) {
     const submission = addSubmission({
       reporterName: data.reporterName,
       title: data.title,
       category: data.category,
+      contentType: data.contentType,
       topic: data.topic || undefined,
       quantity: Number(data.quantity),
       locationName: data.locationName,
       latitude: data.latitude ? Number(data.latitude) : undefined,
       longitude: data.longitude ? Number(data.longitude) : undefined,
-      publicMediaUrl: data.publicMediaUrl,
+      publicMediaUrl: data.publicMediaUrl || undefined,
+      body: data.body || undefined,
     });
     setTrackingId(submission.id);
-    reset({ quantity: "1", category: data.category });
+    reset({ quantity: "1", category: data.category, contentType: data.contentType });
   }
 
   if (trackingId) {
@@ -129,6 +136,26 @@ export function SubmitForm() {
             {errors.title.message}
           </p>
         )}
+      </div>
+
+      <div>
+        <p className="text-sm font-medium text-ink-800">Format</p>
+        <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {CONTENT_TYPE_OPTIONS.map(([value, label]) => (
+            <label
+              key={value}
+              className="flex cursor-pointer items-center gap-2 rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-700 has-checked:border-lake-600 has-checked:bg-lake-50 has-checked:text-lake-700"
+            >
+              <input
+                type="radio"
+                value={value}
+                {...register("contentType")}
+                className="h-3.5 w-3.5 accent-lake-600"
+              />
+              {label}
+            </label>
+          ))}
+        </div>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -239,13 +266,11 @@ export function SubmitForm() {
 
       <div>
         <label htmlFor="publicMediaUrl" className="text-sm font-medium text-ink-800">
-          Public media URL
+          Public link {isArticle && "(optional if you write the article below)"}
         </label>
         <input
           id="publicMediaUrl"
           type="text"
-          required
-          aria-required="true"
           aria-invalid={errors.publicMediaUrl ? "true" : undefined}
           aria-describedby={
             errors.publicMediaUrl
@@ -257,8 +282,8 @@ export function SubmitForm() {
           placeholder="https://instagram.com/p/..."
         />
         <p id="publicMediaUrl-hint" className="mt-1 text-xs text-ink-600">
-          Post your photo or video publicly first, then paste the link here.
-          No file uploads.
+          Post your picture, video, or podcast publicly first, then paste the
+          link here. No file uploads.
         </p>
         {errors.publicMediaUrl && (
           <p id="publicMediaUrl-error" role="alert" className="mt-1 text-xs text-red-600">
@@ -266,6 +291,21 @@ export function SubmitForm() {
           </p>
         )}
       </div>
+
+      {isArticle && (
+        <div>
+          <label htmlFor="body" className="text-sm font-medium text-ink-800">
+            Write the article
+          </label>
+          <textarea
+            id="body"
+            rows={6}
+            {...register("body")}
+            className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+            placeholder="Write your report directly here, or use the public link above instead."
+          />
+        </div>
+      )}
 
       <button
         type="submit"

@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   CATEGORY_LABELS,
   CATEGORY_OPTIONS,
+  CONTENT_TYPE_LABELS,
   statusStyles,
   useSihuSubmissions,
   type SihuCategory,
@@ -96,6 +97,7 @@ export function ReportsTable() {
               <tr>
                 <th className="px-4 py-3 font-medium">ID</th>
                 <th className="px-4 py-3 font-medium">Title</th>
+                <th className="px-4 py-3 font-medium">Format</th>
                 <th className="px-4 py-3 font-medium">Category</th>
                 <th className="px-4 py-3 font-medium">Reporter</th>
                 <th className="px-4 py-3 font-medium">Submitted</th>
@@ -112,6 +114,9 @@ export function ReportsTable() {
                     {submission.id}
                   </td>
                   <td className="px-4 py-3 text-ink-900">{submission.title}</td>
+                  <td className="px-4 py-3 text-ink-700">
+                    {CONTENT_TYPE_LABELS[submission.contentType]}
+                  </td>
                   <td className="px-4 py-3 text-ink-700">
                     {CATEGORY_LABELS[submission.category]}
                   </td>
