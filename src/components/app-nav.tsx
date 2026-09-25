@@ -13,7 +13,9 @@ const sihuLinks = [
 
 const cfaLinks = [
   { href: "/cfa/dashboard", label: "CFA Hub" },
-  { href: "/cfa/submit", label: "Record Activity" },
+  { href: "/cfa/nurseries", label: "Nurseries" },
+  { href: "/cfa/inventory", label: "Inventory" },
+  { href: "/cfa/verification", label: "Verification" },
 ];
 
 export function AppNav() {
@@ -141,7 +143,7 @@ export function AppNav() {
               <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
               {isSihu
                 ? "Preview: saved in this browser only"
-                : "Preview: sample data"}
+                : "Preview: ledger saved in this browser only"}
             </span>
           </div>
         </div>

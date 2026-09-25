@@ -157,7 +157,7 @@ function Stat({
         {label}
       </p>
       <p className="mt-2 text-2xl font-semibold text-ink-900">{value}</p>
-      {hint && <p className="mt-1 text-xs text-ink-500">{hint}</p>}
+      {hint && <p className="mt-1 text-xs text-ink-600">{hint}</p>}
     </div>
   );
 }
