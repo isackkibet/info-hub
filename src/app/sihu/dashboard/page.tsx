@@ -52,7 +52,7 @@ export default async function SihuDashboardPage() {
 
             <div className="flex items-center gap-3">
               {role && (
-                <span className="rounded-full border border-lake-200 bg-lake-50 px-3 py-1 text-xs font-semibold text-lake-700">
+                <span className="rounded-full bg-lake-50 px-3 py-1 text-xs font-semibold text-lake-700">
                   {role}
                 </span>
               )}
@@ -65,7 +65,7 @@ export default async function SihuDashboardPage() {
               {(role === "VALIDATOR" || role === "ADMIN") && (
                 <Link
                   href="/sihu/validator"
-                  className="rounded-md border border-lake-200 px-4 py-2 text-sm font-medium text-lake-700 transition-colors hover:bg-lake-50"
+                  className="rounded-md bg-lake-50 px-4 py-2 text-sm font-medium text-lake-700 transition-colors hover:bg-lake-100"
                 >
                   Validator queue
                 </Link>
@@ -217,14 +217,13 @@ function QuickAction({
   description: string;
   accent: "lake" | "amber";
 }) {
-  const border = accent === "lake" ? "border-lake-200" : "border-amber-200";
-  const bg = accent === "lake" ? "hover:bg-lake-50" : "hover:bg-amber-50";
+  const bg = accent === "lake" ? "bg-lake-50 hover:bg-lake-100" : "bg-amber-50 hover:bg-amber-100";
   const heading = accent === "lake" ? "text-lake-700" : "text-amber-700";
 
   return (
     <Link
       href={href}
-      className={`group rounded-2xl border ${border} bg-white p-5 transition-colors ${bg} shadow-sm shadow-forest-950/5`}
+      className={`rounded-2xl p-5 transition-colors ${bg}`}
     >
       <p className={`text-sm font-semibold ${heading}`}>{title}</p>
       <p className="mt-1 text-xs leading-relaxed text-ink-600">{description}</p>

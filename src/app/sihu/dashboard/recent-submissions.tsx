@@ -16,10 +16,10 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 const STATUS_STYLES: Record<string, string> = {
-  PENDING: "bg-amber-50 text-amber-700 border-amber-200",
-  VERIFIED: "bg-forest-50 text-forest-700 border-forest-200",
-  REJECTED: "bg-red-50 text-red-700 border-red-200",
-  BATCHED: "bg-lake-50 text-lake-700 border-lake-200",
+  PENDING: "bg-amber-50 text-amber-700",
+  VERIFIED: "bg-forest-50 text-forest-700",
+  REJECTED: "bg-red-50 text-red-700",
+  BATCHED: "bg-lake-50 text-lake-700",
 };
 
 export function RecentSubmissions({
@@ -29,8 +29,14 @@ export function RecentSubmissions({
 }) {
   if (submissions.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-sand-200 p-10 text-center">
+      <div className="rounded-2xl bg-white p-10 text-center shadow-sm shadow-forest-950/5">
         <p className="text-sm text-ink-600">No submissions yet.</p>
+        <a
+          href="/sihu/submit"
+          className="mt-3 inline-block text-sm font-medium text-lake-600 hover:underline"
+        >
+          Submit the first one →
+        </a>
       </div>
     );
   }
@@ -38,7 +44,7 @@ export function RecentSubmissions({
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow-sm shadow-forest-950/5">
       <table className="w-full text-left text-sm">
-        <thead className="border-b border-sand-200 bg-sand-100 text-xs uppercase tracking-wide text-ink-600">
+        <thead className="bg-sand-100 text-xs uppercase tracking-wide text-ink-600">
           <tr>
             <th className="px-4 py-3 font-medium">Title</th>
             <th className="px-4 py-3 font-medium">Category</th>
@@ -49,10 +55,10 @@ export function RecentSubmissions({
           </tr>
         </thead>
         <tbody>
-          {submissions.map((s) => (
+          {submissions.map((s, index) => (
             <tr
               key={s.id}
-              className="border-b border-sand-200 last:border-none hover:bg-sand-50"
+              className={`hover:bg-sand-50 ${index % 2 === 1 ? "bg-sand-50/60" : ""}`}
             >
               <td className="px-4 py-3">
                 <p className="max-w-[200px] truncate font-medium text-ink-900">
@@ -76,7 +82,7 @@ export function RecentSubmissions({
               </td>
               <td className="px-4 py-3">
                 <span
-                  className={`rounded-full border px-2.5 py-1 text-xs font-medium ${STATUS_STYLES[s.status] ?? ""}`}
+                  className={`rounded-full px-2.5 py-1 text-xs font-medium ${STATUS_STYLES[s.status] ?? ""}`}
                 >
                   {s.status}
                 </span>
