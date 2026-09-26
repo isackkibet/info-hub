@@ -41,16 +41,18 @@ const hubs = [
 
 export function HubsSection() {
   return (
-    <section id="hubs" className="border-b border-sand-200 bg-sand-50">
+    <section id="hubs" className="bg-sand-50">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-        <div className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-wide text-forest-700">
-            Two hubs
-          </span>
-          <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
-            Built for two different jobs
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-ink-700">
+        <div className="grid gap-x-12 gap-y-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-end">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-wide text-forest-700">
+              The Two Hubs
+            </span>
+            <h2 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+              Built for two different jobs
+            </h2>
+          </div>
+          <p className="text-base leading-relaxed text-ink-700">
             News reporting and forest conservation need different tools.
             SIHU keeps reporting quick and simple. CFA carries the deeper
             record-keeping that conservation work actually needs.
@@ -91,7 +93,13 @@ export function HubsSection() {
                   {hub.description}
                 </p>
 
-                <ul className="mt-6 space-y-3 border-t border-sand-200 pt-6">
+                <ul
+                  className={
+                    hub.accent === "forest"
+                      ? "mt-6 space-y-3 rounded-xl bg-forest-50/60 p-5"
+                      : "mt-6 space-y-3 rounded-xl bg-lake-50/60 p-5"
+                  }
+                >
                   {hub.points.map((point) => (
                     <li key={point} className="flex gap-3 text-sm text-ink-700">
                       <span
@@ -126,8 +134,8 @@ export function HubsSection() {
                     href={hub.secondaryHref}
                     className={
                       hub.accent === "forest"
-                        ? "rounded-md border border-forest-200 px-4 py-2 text-sm font-medium text-forest-700 transition-colors hover:bg-forest-50"
-                        : "rounded-md border border-lake-200 px-4 py-2 text-sm font-medium text-lake-700 transition-colors hover:bg-lake-50"
+                        ? "rounded-md bg-forest-50 px-4 py-2 text-sm font-medium text-forest-700 transition-colors hover:bg-forest-100"
+                        : "rounded-md bg-lake-50 px-4 py-2 text-sm font-medium text-lake-700 transition-colors hover:bg-lake-100"
                     }
                   >
                     {hub.secondaryLabel}
