@@ -1,10 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
 import { BrandMark } from "@/components/brand-mark";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-forest-950">
-      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+    <footer className="relative overflow-hidden bg-forest-950">
+      <Image
+        src="/brand/watering-spray.png"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-forest-950/88" />
+      <div className="relative mx-auto max-w-7xl px-6 py-14 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[2fr_1fr_1fr_1fr]">
           {/* Brand */}
           <div>
