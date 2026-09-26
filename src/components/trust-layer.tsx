@@ -1,27 +1,23 @@
 const pipeline = [
   {
     step: "01",
-    title: "Records are collected",
-    detail:
-      "Every verified report and activity from both hubs is gathered automatically, once a day.",
+    title: "Collected",
+    detail: "Verified records synced daily from both hubs.",
   },
   {
     step: "02",
-    title: "A single proof is built",
-    detail:
-      "Each record gets a unique digital fingerprint, and all of them are combined into one proof.",
+    title: "Fingerprinted",
+    detail: "Each record combined into one proof.",
   },
   {
     step: "03",
-    title: "The proof is anchored",
-    detail:
-      "That proof is written to the Avalanche blockchain in one transaction, covering every record in the batch.",
+    title: "Anchored",
+    detail: "Written to Avalanche in a single transaction.",
   },
   {
     step: "04",
-    title: "Records become auditable",
-    detail:
-      "Anyone can later confirm a record was included, and that it has not been changed since.",
+    title: "Auditable",
+    detail: "Anyone can verify it was included, unchanged.",
   },
 ];
 
@@ -37,27 +33,21 @@ export function TrustLayer() {
             One proof, covering both hubs
           </h2>
           <p className="mt-4 text-base leading-relaxed text-ink-700">
-            A verified SIHU report and a verified CFA planting record can
-            land in the same daily proof. One system, one audit trail,
-            regardless of which hub the record came from.
+            Every verified record, from <strong className="font-semibold text-ink-900">either hub</strong>,
+            joins the same daily audit trail.
           </p>
         </div>
 
         <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {pipeline.map((item, index) => (
-            <div key={item.step} className="relative pl-1">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest-900 text-sm font-semibold tabular-nums text-white">
-                  {item.step}
-                </span>
-                {index < pipeline.length - 1 && (
-                  <span className="hidden h-px flex-1 bg-sand-200 lg:block" />
-                )}
-              </div>
+          {pipeline.map((item) => (
+            <div key={item.step}>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest-900 text-sm font-semibold tabular-nums text-white">
+                {item.step}
+              </span>
               <h3 className="mt-4 text-base font-semibold text-ink-900">
                 {item.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-600">
+              <p className="mt-1.5 text-sm leading-relaxed text-ink-600">
                 {item.detail}
               </p>
             </div>
@@ -67,23 +57,19 @@ export function TrustLayer() {
         {/* Trust callout */}
         <div className="mt-16 grid gap-6 sm:grid-cols-2">
           <div className="rounded-2xl bg-forest-50 p-6">
-            <p className="text-xs font-semibold uppercase tracking-wide text-forest-800">
-              No wallets, no gas fees
+            <p className="text-sm font-semibold text-forest-800">
+              No wallets. No gas fees.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-ink-700">
-              Field users never sign a transaction or touch a wallet. The
-              proof is created and anchored automatically, in the background,
-              on their behalf.
+              Anchoring happens automatically, in the background.
             </p>
           </div>
           <div className="rounded-2xl bg-lake-50 p-6">
-            <p className="text-xs font-semibold uppercase tracking-wide text-lake-700">
+            <p className="text-sm font-semibold text-lake-700">
               SIHU + CFA, one chain
             </p>
             <p className="mt-2 text-sm leading-relaxed text-ink-700">
-              Water reports and forest records share the same daily proof
-              batch, anchored once to the Avalanche C-Chain. One tamper-evident
-              audit trail for both hubs.
+              One tamper-evident audit trail, anchored to Avalanche.
             </p>
           </div>
         </div>
