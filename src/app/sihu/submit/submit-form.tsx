@@ -10,6 +10,9 @@ import {
 } from "@/lib/sihu-schema";
 import { addSubmission, CATEGORY_OPTIONS, CONTENT_TYPE_OPTIONS } from "@/lib/sihu";
 
+const fieldClass =
+  "mt-2 w-full rounded-md bg-sand-50 px-3 py-2 text-sm text-ink-900 outline-none focus:ring-2 focus:ring-lake-600";
+
 export function SubmitForm() {
   const [trackingId, setTrackingId] = useState<string | null>(null);
 
@@ -56,18 +59,18 @@ export function SubmitForm() {
         aria-live="polite"
         className="rounded-2xl bg-white p-8 shadow-lg shadow-forest-950/5"
       >
-        <span className="inline-flex items-center rounded-full border border-lake-200 bg-lake-50 px-3 py-1 text-xs font-medium text-lake-700">
+        <span className="inline-flex items-center rounded-full bg-lake-50 px-3 py-1 text-xs font-medium text-lake-700">
           Submitted
         </span>
         <h2 className="mt-4 text-xl font-semibold text-ink-900">
           Report received
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-ink-600">
-          Your tracking ID is{" "}
+          Tracking ID{" "}
           <span className="font-mono font-semibold text-ink-900">
             {trackingId}
-          </span>
-          . A validator will review it and update its status.
+          </span>{" "}
+          — a validator will review it next.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <button
@@ -79,7 +82,7 @@ export function SubmitForm() {
           </button>
           <Link
             href="/sihu/my-reports"
-            className="rounded-md border border-sand-200 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-lake-200 hover:text-lake-700"
+            className="rounded-md bg-sand-100 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-sand-200"
           >
             View my reports
           </Link>
@@ -106,7 +109,7 @@ export function SubmitForm() {
           aria-invalid={errors.reporterName ? "true" : undefined}
           aria-describedby={errors.reporterName ? "reporterName-error" : undefined}
           {...register("reporterName")}
-          className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+          className={fieldClass}
           placeholder="e.g. Otieno"
         />
         {errors.reporterName && (
@@ -128,7 +131,7 @@ export function SubmitForm() {
           aria-invalid={errors.title ? "true" : undefined}
           aria-describedby={errors.title ? "title-error" : undefined}
           {...register("title")}
-          className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+          className={fieldClass}
           placeholder="e.g. Water hyacinth spreading near Dunga Beach"
         />
         {errors.title && (
@@ -144,13 +147,13 @@ export function SubmitForm() {
           {CONTENT_TYPE_OPTIONS.map(([value, label]) => (
             <label
               key={value}
-              className="flex cursor-pointer items-center gap-2 rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-700 has-checked:border-lake-600 has-checked:bg-lake-50 has-checked:text-lake-700"
+              className="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-sand-50 px-3 py-2 text-sm text-ink-700 has-checked:bg-lake-600 has-checked:text-white has-focus-visible:ring-2 has-focus-visible:ring-lake-600 has-focus-visible:ring-offset-2"
             >
               <input
                 type="radio"
                 value={value}
                 {...register("contentType")}
-                className="h-3.5 w-3.5 accent-lake-600"
+                className="sr-only"
               />
               {label}
             </label>
@@ -168,7 +171,7 @@ export function SubmitForm() {
             required
             aria-required="true"
             {...register("category")}
-            className="mt-2 w-full rounded-md border border-sand-200 bg-white px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+            className={fieldClass}
           >
             {CATEGORY_OPTIONS.map(([value, label]) => (
               <option key={value} value={value}>
@@ -180,13 +183,13 @@ export function SubmitForm() {
 
         <div>
           <label htmlFor="topic" className="text-sm font-medium text-ink-800">
-            Topic (optional)
+            Topic <span className="font-normal text-ink-400">optional</span>
           </label>
           <input
             id="topic"
             type="text"
             {...register("topic")}
-            className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+            className={fieldClass}
             placeholder="e.g. species or subject name"
           />
         </div>
@@ -206,7 +209,7 @@ export function SubmitForm() {
             aria-invalid={errors.quantity ? "true" : undefined}
             aria-describedby={errors.quantity ? "quantity-error" : undefined}
             {...register("quantity")}
-            className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+            className={fieldClass}
           />
           {errors.quantity && (
             <p id="quantity-error" role="alert" className="mt-1 text-xs text-red-600">
@@ -217,26 +220,26 @@ export function SubmitForm() {
 
         <div>
           <label htmlFor="latitude" className="text-sm font-medium text-ink-800">
-            Latitude (optional)
+            Latitude <span className="font-normal text-ink-400">optional</span>
           </label>
           <input
             id="latitude"
             type="text"
             {...register("latitude")}
-            className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+            className={fieldClass}
             placeholder="-0.1022"
           />
         </div>
 
         <div>
           <label htmlFor="longitude" className="text-sm font-medium text-ink-800">
-            Longitude (optional)
+            Longitude <span className="font-normal text-ink-400">optional</span>
           </label>
           <input
             id="longitude"
             type="text"
             {...register("longitude")}
-            className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+            className={fieldClass}
             placeholder="34.7617"
           />
         </div>
@@ -254,7 +257,7 @@ export function SubmitForm() {
           aria-invalid={errors.locationName ? "true" : undefined}
           aria-describedby={errors.locationName ? "locationName-error" : undefined}
           {...register("locationName")}
-          className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+          className={fieldClass}
           placeholder="e.g. Dunga Beach, Kisumu"
         />
         {errors.locationName && (
@@ -266,7 +269,7 @@ export function SubmitForm() {
 
       <div>
         <label htmlFor="publicMediaUrl" className="text-sm font-medium text-ink-800">
-          Public link {isArticle && "(optional if you write the article below)"}
+          Public link {isArticle && <span className="font-normal text-ink-400">optional</span>}
         </label>
         <input
           id="publicMediaUrl"
@@ -278,12 +281,11 @@ export function SubmitForm() {
               : "publicMediaUrl-hint"
           }
           {...register("publicMediaUrl")}
-          className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+          className={fieldClass}
           placeholder="https://instagram.com/p/..."
         />
         <p id="publicMediaUrl-hint" className="mt-1 text-xs text-ink-600">
-          Post your picture, video, or podcast publicly first, then paste the
-          link here. No file uploads.
+          Publish it publicly first, then paste the link here.
         </p>
         {errors.publicMediaUrl && (
           <p id="publicMediaUrl-error" role="alert" className="mt-1 text-xs text-red-600">
@@ -301,7 +303,7 @@ export function SubmitForm() {
             id="body"
             rows={6}
             {...register("body")}
-            className="mt-2 w-full rounded-md border border-sand-200 px-3 py-2 text-sm text-ink-900 outline-none focus:border-lake-600 focus:ring-1 focus:ring-lake-600"
+            className={fieldClass}
             placeholder="Write your report directly here, or use the public link above instead."
           />
         </div>

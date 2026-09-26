@@ -14,8 +14,7 @@ export default function SihuSubmitPage() {
             Submit a field report
           </h1>
           <p className="mt-3 text-base leading-relaxed text-ink-700">
-            Post your photo or video publicly first, then fill in this form.
-            No file uploads required.
+            No file uploads — link your public post or write it here.
           </p>
 
           <div className="mt-10">
