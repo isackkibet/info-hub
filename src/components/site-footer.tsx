@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/brand-mark";
 
 export function SiteFooter() {
   return (
@@ -8,9 +9,7 @@ export function SiteFooter() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-md bg-white text-sm font-semibold text-forest-950">
-                KN
-              </span>
+              <BrandMark />
               <span className="flex flex-col leading-none">
                 <span className="text-sm font-semibold tracking-wide text-white">
                   KAI NUVARI

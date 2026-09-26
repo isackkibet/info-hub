@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { RegisterForm } from "./register-form";
+import { BrandMark } from "@/components/brand-mark";
 
 export default function RegisterPage() {
   return (
@@ -19,9 +20,7 @@ export default function RegisterPage() {
         {/* Branding overlay */}
         <div className="relative flex h-full flex-col justify-between p-12">
           <Link href="/" className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-white/10 text-sm font-semibold text-white ring-1 ring-white/20 backdrop-blur-sm">
-              KN
-            </span>
+            <BrandMark size="md" />
             <span className="flex flex-col leading-none">
               <span className="text-sm font-semibold tracking-wide text-white">KAI NUVARI</span>
               <span className="text-xs text-white/60">Environmental Info Hub</span>
@@ -56,9 +55,7 @@ export default function RegisterPage() {
           {/* Mobile-only logo */}
           <div className="mb-8 flex flex-col items-center text-center lg:hidden">
             <Link href="/">
-              <span className="flex h-11 w-11 items-center justify-center rounded-md bg-forest-900 text-sm font-semibold text-white">
-                KN
-              </span>
+              <BrandMark size="lg" />
             </Link>
             <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-forest-700">
               KAI NUVARI

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOutAction } from "@/lib/auth-actions";
+import { BrandMark } from "@/components/brand-mark";
 
 const sihuLinks = [
   { href: "/sihu/dashboard", label: "SIHU Hub" },
@@ -24,9 +25,7 @@ export function AppNav() {
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-forest-900 text-sm font-semibold text-white">
-            KN
-          </span>
+          <BrandMark />
           <span className="flex flex-col leading-none">
             <span className="text-sm font-semibold tracking-wide text-ink-900">
               KAI NUVARI
